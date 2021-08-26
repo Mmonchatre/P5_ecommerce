@@ -1,10 +1,6 @@
-<html lang="fr">
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="Site Ecommerce Orinoco">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -16,11 +12,10 @@
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
     <link rel="stylesheet" href="../../css/style.css">
-    <Title>Orinoco Teddies</Title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-darkpink">
+    <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="./index.html">Orinoco</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,33 +25,34 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="./index.html">Les Teddies</a>
+                    <a class="nav-link" href="./index.html">Les derniers articles</a>
                 </li>
             </ul>
             <ul class="navbar-nav my-2 my-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="./order.html" title="Order">Order</a>
+                    <a class="nav-link" href="../favorites/favorites.html" title="Mes favoris"><i class="fas fa-star"></i></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="./basket.html" title="Panier"><i class="fas fa-shopping-cart"></i></a>
+                    <a class="nav-link" href="../contact/contact.html" title="Contact"><i class="fas fa-envelope"></i></a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <nav class="navbar fixed-bottom navbar-light">
+    <nav class="navbar fixed-bottom navbar-dark bg-dark">
         <span class="navbar-text">
             @copyrights Orinoco 2021-2100
         </span>
     </nav>
 
     <div class="container">
-        <h1>Nos Teddies</h1>
+        <h1>Les Teddies</h1>
     </div>
-    <script src="../../js/article.js"></script>
-    <script src="../../js/config.js"></script>
-    <script src="index.js"></script>
-
+    <script src="./teddy.js"></script>
+    <!-- <script src="../../js/articleManager.js"></script>
+    <script src="../../js/favoritesManager.js"></script> -->
+    <script src="../js/config.js"></script>
+    <script src="inndex.js"></script>
 </body>
 
 </html>

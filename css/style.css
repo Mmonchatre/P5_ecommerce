@@ -1,0 +1,73 @@
+body{
+    background-color: #F3E9F1;
+    font-family: "Calibri";
+    font-size: 1.2rem;
+    color: rgb(126, 63, 63);
+}
+
+.container{
+    padding: 25px;
+    margin-bottom: 44px;
+}
+
+.bg-darkpink {
+    background:darkorchid;
+}
+
+h1{
+    font-size: 150%;
+    text-align: center;
+}
+
+@media screen and (max-width: 780px){
+    body{
+        font-size: 1.4rem;
+    }
+}
+
+.article{
+    border: none;
+}
+
+.article .card-header{
+    background-color: #343a40;
+
+}
+
+.article .card-body{
+    background-color: rgba(0,0,0,0.4);
+}
+
+.article .publication-date{
+    text-align: right;
+}
+
+.article .addFavorite{
+    font-size: 1.4rem;
+    position: absolute;
+    top: 80px;
+    right: 10px;
+}
+
+.article .addFavorite .far{
+    color: rgba(0,0,0,0.2);
+}
+
+.article .addFavorite:hover{
+    color: yellow;
+    cursor: pointer;
+}
+
+.article .addFavorite.activated{
+    color: yellow;
+}
+
+/* ------------------  Panier HTML ----------------------*/
+
+.container_empty_basket, .recap {
+    border: solid 1px Black;
+    color: black;
+    background-color: white;
+}
+
+.recap
