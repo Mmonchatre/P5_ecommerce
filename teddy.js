@@ -74,7 +74,7 @@ function teddyPage (article){
             {
                 window.location.href="basket.html";
             }else{
-                window.location.href="teddies.html";
+                window.location.href="index.html";
             }
         }
 

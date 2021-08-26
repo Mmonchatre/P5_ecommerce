@@ -14,6 +14,9 @@ body{
     background:darkorchid;
 }
 
+.red {
+    color:red;
+}
 h1{
     font-size: 150%;
     text-align: center;
