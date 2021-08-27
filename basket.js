@@ -95,6 +95,7 @@ function deleteArticle () {
                     myNode.textContent = '';
                     basketDisplay();
                     deleteArticle();
+                    
                 }
             })
     }
