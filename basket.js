@@ -87,17 +87,14 @@ function deleteArticle () {
             //console.log(w);
             if(window.confirm("vous allez supprimer un produit OK pour confirmer") )
                 {
-                
                     teddyRemoved = productsAlreadyInLocalStorage.splice(w, 1);
                     localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
                     alert("le produit a bien été supprimé");
+                    // suppression de l'ancien affichage et regénération :
                     const myNode = document.getElementById("Container_BasketContents");
                     myNode.textContent = '';
-
-                    //window.location.href="basket.html";
                     basketDisplay();
                     deleteArticle();
-
                 }
             })
     }
@@ -105,6 +102,22 @@ function deleteArticle () {
 // --- fin fonction suppression d'un article du panier !...
 
 
-
 basketDisplay();
 deleteArticle();
+
+
+
+
+/* confirmation en HTML  et JS :
+
+        <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+            <h5 class="alert-heading">Suppression d'un article</h5>
+            <p>vous allez supprimer un article <a href="#" class="alert-link">Continuer</a> !</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+
+            </button>
+        </div>
+
+*/
+
