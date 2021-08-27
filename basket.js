@@ -56,7 +56,7 @@ function basketDisplay() {
         })
         //console.log(PrixTotal/100)
     }
-// ---------------- affichage bouton de/et vidage du panier ------------------------
+/* ---------------- affichage bouton de/et vidage du panier ------------------------
     const btn_vidage_panier = `
     <button id="IdBtnVidagePanier" class="btn-vidage-panier col-12 btn-warning"> vider le panier</button>
     `;
@@ -68,7 +68,7 @@ function basketDisplay() {
         alert("Le panier a été vidé");
         window.location.href="basket.html"
     })
-    // ---------------- vidage du panier Fin !------------------------
+*/    // ---------------- vidage du panier Fin !------------------------
 }
 // fin fonction basketDisplay !----
 
@@ -89,13 +89,13 @@ function deleteArticle () {
                 {
                     teddyRemoved = productsAlreadyInLocalStorage.splice(w, 1);
                     localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
-                    alert("le produit a bien été supprimé");
+                    // alert("le produit a bien été supprimé");
                     // suppression de l'ancien affichage et regénération :
                     const myNode = document.getElementById("Container_BasketContents");
                     myNode.textContent = '';
                     basketDisplay();
                     deleteArticle();
-                    
+
                 }
             })
     }
