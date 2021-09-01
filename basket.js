@@ -48,7 +48,7 @@ function basketDisplay() {
                     <input type="button" value="+" class="plus plus-js">
                     </span>
                     <span class="col align-middle">
-                        ${product.prixTeddy/100}
+                        ${product.prixTeddy/100*product.qtyTeddy}
                     </span>
                     
                     <span class="col align-middle text-right">
@@ -58,7 +58,7 @@ function basketDisplay() {
                     
                 </div>
             `;
-            PrixTotal += product.prixTeddy;
+            PrixTotal += product.prixTeddy*product.qtyTeddy
         });
 
 
