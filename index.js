@@ -9,17 +9,15 @@ loadConfig().then(data => {
                 let article = new Article(jsonArticle);
                     document.querySelector(".container").innerHTML += 
                                                                     `
-                                                                    <div class="col-12 mt-5">
+                                                                    <!-- <div class="col-12 mt-5"> -->
+                                                                    <div class="col-12 col-lg-4 mt-5">
                                                                         <div class="card article">
                                                                             <div class="card-header">
                                                                                 <h5 class="card-title d-flex justify-content-between">${article.name}
                                                                                 </span><a href="./teddy.html?${article._id}" class="stretched-link" ></a></h5>
                                                                             </div>
                                                                             <img src="${article.imageUrl}" class="card-img-top img-thumbnail">
-                                                                            <span class="fa-stack fa-2x addFavorite"}>
-                                                                                
-                                                                                <!-- <i class="far fa-star fa-stack-1x"></i> -->
-                                                                            </span>
+
                                                                             <div class="card-body">
                                                                                 <p class="card-text">
                                                                                     <!--Description:<br>${article.description}-->

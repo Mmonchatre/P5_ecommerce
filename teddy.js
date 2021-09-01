@@ -25,15 +25,16 @@ function teddyPage (article){
     for (let couleur of article.colors) {
         listeOptions += `<OPTION value="${couleur}"> ${couleur}</OPTION>`
 	}
+
+    
+
     document.querySelector(".container").innerHTML += `<div class="col-12 mt-5">
     <div class="card article">
         <div class="card-header">
             <h5 class="card-title d-flex justify-content-between">${article.name}</h5>
         </div>
         <img src="${article.imageUrl}" class="card-img-top">
-        <span class="fa-stack fa-2x addFavorite" data-id=${article._id}>
-            <!-- <i class="far fa-star fa-stack-1x"></i> -->
-        </span>
+
         <div class="card-body">
             <div class="card-text">
             Options: <FORM><SELECT name="couleurTeddy" id="couleurTeddy" size="1">
@@ -42,13 +43,19 @@ function teddyPage (article){
             Description:<br>${article.description}
             </div>
         </div>
-        <div class="card-footer">
-            Prix ${article.price /100} € 
-            </span><button name="btnAjouterAuPanier" type="submit" id="btnAjouterAuPanier" class="btn bg-darkpink">Ajouter au Panier</button>
+        <div>
+            <span class="col-6">
+                Prix ${article.price /100} € 
+            </span>
+            <span><input type="button" value="-" class="minus minus-js"><input type="number" step="1" min="1" name="quantity" value="1" id="quantity"><input type="button" value="+" class="plus plus-js"></span>
+
+            <span >
+                <button name="btnAjouterAuPanier" type="submit" id="btnAjouterAuPanier" class="btn bg-darkpink col-6">Ajouter au Panier</button>
+            </span>
         </div>
     </div>`; 
 
-    //selection du boutonAjoter l'article dans le panier
+    //selection du bouton Ajouter l'article dans le panier
     const AjouterAuPanier = document.querySelector("#btnAjouterAuPanier")
     AjouterAuPanier.addEventListener("click", (event)=>{
         event.preventDefault();
@@ -65,6 +72,7 @@ function teddyPage (article){
             prixTeddy:article.price,
             productId:article._id,
             couleurTeddy:couleur.value,
+            qtyTeddy:quantity.value,
         }
 
             //console.log(optionsTeddy)
@@ -78,19 +86,31 @@ function teddyPage (article){
             }
         }
 
-            //-------------------------------- local storage  ----------------------------------
-            let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+        //-------------------------------- local storage  ----------------------------------
+        let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
 
-            const AjoutNewTeddyDansPanier =() => {
-                // fonction d'ajout d'un teddy dans le panier et sauvegarde dans le local storage
-                productsAlreadyInLocalStorage.push(optionsTeddy);
-                localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
-            }
+        const AjoutNewTeddyDansPanier =() => {
+
+            //lecture du panier pour trouver les id et couleurs correspondantes
+            // si id et couleur déja présents, il faut ajouter 1 a la qty, ne pas faire de push, mais changer les valeurs dans le local storage
+            // fonction d'ajout d'un teddy dans le panier et sauvegarde dans le local storage
+
+            /*            productsAlreadyInLocalStorage.forEach(function(product){
+                if (${product.couleur == couleurTeddy:couleur.value)
+
+
+                    */
+
+
+
+            productsAlreadyInLocalStorage.push(optionsTeddy);
+            localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
+        }
 
             // if basket not empty
             if (productsAlreadyInLocalStorage){
                 AjoutNewTeddyDansPanier();
-                console.log(productsAlreadyInLocalStorage)
+                //console.log(productsAlreadyInLocalStorage)
                 demandeConfirmation();
             } 
             //if basket empty:

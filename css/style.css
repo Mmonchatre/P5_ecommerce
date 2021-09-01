@@ -22,6 +22,10 @@ h1{
     text-align: center;
 }
 
+.qty {
+    width:50px;
+}
+
 @media screen and (max-width: 780px){
     body{
         font-size: 1.4rem;
@@ -33,36 +37,13 @@ h1{
 }
 
 .article .card-header{
-    background-color: #343a40;
-
+    background-color: darkorchid;
+    color:white;
 }
 
 .article .card-body{
-    background-color: rgba(0,0,0,0.4);
-}
-
-.article .publication-date{
-    text-align: right;
-}
-
-.article .addFavorite{
-    font-size: 1.4rem;
-    position: absolute;
-    top: 80px;
-    right: 10px;
-}
-
-.article .addFavorite .far{
-    color: rgba(0,0,0,0.2);
-}
-
-.article .addFavorite:hover{
-    color: yellow;
-    cursor: pointer;
-}
-
-.article .addFavorite.activated{
-    color: yellow;
+    background-color: darkorchid;
+    color:white;
 }
 
 /* ------------------  Panier HTML ----------------------*/
@@ -73,4 +54,4 @@ h1{
     background-color: white;
 }
 
-.recap
+

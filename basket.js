@@ -9,38 +9,98 @@ function basketDisplay() {
     basketContents.innerHTML +=BasketStructure;
 
     if((productsAlreadyInLocalStorage === null ) || (productsAlreadyInLocalStorage.length == 0)){
-        basketContents.innerHTML +=`<div class="container_empty_basket">votre panier est vide</div>`;
+        basketContents.innerHTML +=`<div class="text-center">votre panier est vide</div>`;
     }else{
         //affichage du contenu des articles du local storage et calcul du prix total du panier :
-        let BasketStructure ="";
-        basketContents.innerHTML +=BasketStructure;
+        let BasketStructure =`<div class="row">
+        <span class="col-2"></span>
+        <span class="col">Produit</span>
+        <span class="col">Couleur</span>
+        <span class="col">Prix</span>
+        <span class="col">Qty</span>
+        <span class="col">Prix sous total</span>
+        <span class="col"></span>
+        </div>
+        
+        `;
+        //basketContents.innerHTML +=BasketStructure;
         let PrixTotal = 0 ;
-        for (k=0; k < productsAlreadyInLocalStorage.length; k++){
+
+        productsAlreadyInLocalStorage.forEach(function(product){
             //console.log (k);  // verif nombre element du panier 
-            BasketStructure = BasketStructure + `
-                <div class="row align-items-start border align-middle">
-                    <div class="col-2 ">
-                    <img src="${productsAlreadyInLocalStorage[k].ImageTeddy}" alt="Bootstrap" class="img-circle img-thumbnail">
-                        
-                    </div>
-                    <div class="col-2">
-                        ${productsAlreadyInLocalStorage[k].nomTeddy}
-                    </div>
-                    <div class="col-2">
-                        ${productsAlreadyInLocalStorage[k].couleurTeddy}
-                    </div>
-                    <div class="col-2 ">
-                        ${productsAlreadyInLocalStorage[k].prixTeddy/100} € 
-                    </div>
-                    <div class="col-3 text-right">
+            BasketStructure += `
+                <div class="row border">
+                    <img src="${product.ImageTeddy}" alt="Bootstrap" class="img-circle img-thumbnail col-2 align-middle ">
+                  
+                    <span class="col align-middle">
+                        ${product.nomTeddy}
+                    </span>
+                    <span class="col align-middle">
+                        ${product.couleurTeddy}
+                    </span>
+                    <span class="col align-middle">
+                        ${product.prixTeddy/100} € 
+                    </span>
+                    <!-- <span class="col align-middle"> -->
+                    <span class="quantity clearfix">
+
+                    <input type="button" value="-" class="minus minus-js"><input type="number" step="1" min="1" name="quantity" value="${product.qtyTeddy}" title="Qty" class="qty">
+                    <input type="button" value="+" class="plus plus-js">
+                    </span>
+                    <span class="col align-middle">
+                        ${product.prixTeddy/100}
+                    </span>
+                    
+                    <span class="col align-middle text-right">
                         <button class="btn btn-supprimer-article"><i class="far fa-trash-alt red"></i></button>
-                    </div>
+                    </span>
+                    
+                    
+                </div>
+            `;
+            PrixTotal += product.prixTeddy;
+        });
+
+
+
+        /* for (k=0; k < productsAlreadyInLocalStorage.length; k++){
+            //console.log (k);  // verif nombre element du panier 
+            BasketStructure += `
+                <div class="row border">
+                    <img src="${productsAlreadyInLocalStorage[k].ImageTeddy}" alt="Bootstrap" class="img-circle img-thumbnail col-2 align-middle ">
+                  
+                    <span class="col align-middle">
+                        ${productsAlreadyInLocalStorage[k].nomTeddy}
+                    </span>
+                    <span class="col align-middle">
+                        ${productsAlreadyInLocalStorage[k].couleurTeddy}
+                    </span>
+                    <span class="col align-middle">
+                        ${productsAlreadyInLocalStorage[k].prixTeddy/100} € 
+                    </span>
+                    <!-- <span class="col align-middle"> -->
+                    <span class="quantity clearfix">
+
+                    <input type="button" value="-" class="minus minus-js"><input type="number" step="1" min="1" name="quantity" value="1" title="Qty" class="qty"><input type="button" value="+" class="plus plus-js">
+                    </span>
+                    <span class="col align-middle">
+                        ${productsAlreadyInLocalStorage[k].prixTeddy/100}
+                    </span>
+                    <!-- 
+                    <span class="col align-middle text-right">
+                        <button class="btn btn-supprimer-article"><i class="far fa-trash-alt red"></i></button>
+                    </span>
+                    -->
+                    
                 </div>
             `;
             PrixTotal += productsAlreadyInLocalStorage[k].prixTeddy;
         }
+
+        */
+
         BasketStructure = BasketStructure + `
-            <div class="row">
+            <div class="row align-start">
                 <div class="col text-center">Prix total du Panier: ${PrixTotal/100} €</div>
             </div>
             <div class="row">
