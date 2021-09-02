@@ -26,6 +26,25 @@ h1{
     width:50px;
 }
 
+
+.cart-product-name{
+    width:100px;
+}
+
+.cart-product-couleur{
+    width:50px;
+}
+.cart-product-qty {
+    width:10px;
+}
+.cart-product-price{
+        width: 30px
+    }
+.recap{
+        width:200px;
+}
+
+
 @media screen and (max-width: 780px){
     body{
         font-size: 1.4rem;

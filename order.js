@@ -1,7 +1,7 @@
 
 // activation du bouton envoi si champ_obligatoires remplis
 
-
+/*
 function verif_champs(){
     var champ_obligatoire = [ "lastName", "firstName", "email", "address", "city"];
     //console.log(champ_obligatoire);
@@ -29,14 +29,11 @@ function verif_champs(){
     }
 }
 
+*/
 
 
 
-
-
-
-/*
-document.querySelector('.form input[type="button"]').addEventListener("click",function(){
+document.querySelector(".form-control").addEventListener("click",function(){
     var valid = true;
     for(let input of document.querySelectorAll(".form input,.form textarea")){
 
@@ -58,7 +55,7 @@ document.querySelector('.form input[type="button"]').addEventListener("click",fu
             *   city: string,
             *   email: string
   
-        
+        */
         firstName:firstname.value,
         lastName:lastname.value,
         address:address.value,
@@ -70,7 +67,7 @@ document.querySelector('.form input[type="button"]').addEventListener("click",fu
 
 });
 
-*/
+
 
 
 // generation du recapitulatif ( nom, couleur et prix de chaque element + total ) du panier :
@@ -98,16 +95,19 @@ function basketRecap() {
                         ${productsAlreadyInLocalStorage[k].couleurTeddy}
                     </td>
                     <td>
+                        ${productsAlreadyInLocalStorage[k].qtyTeddy} 
+                    </td>
+                    <td>
                         ${productsAlreadyInLocalStorage[k].prixTeddy/100} € 
                     </td>
                     </tr>
                 
             `;
-            PrixTotal += productsAlreadyInLocalStorage[k].prixTeddy;
+            PrixTotal += productsAlreadyInLocalStorage[k].prixTeddy * productsAlreadyInLocalStorage[k].qtyTeddy
         }
         BasketRecapStructure = BasketRecapStructure + `
             <div class="row">
-                <div class="col text-center ">Total     : ${PrixTotal/100} €</div>
+                <div class="text-center recap">Total de votre commande: ${PrixTotal/100} €</div>
             </div>
         `;
         basketRecap.innerHTML +=BasketRecapStructure;
@@ -126,20 +126,18 @@ function tableauIds()  {
     let tableau =[];
     let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
     for (k=0; k < productsAlreadyInLocalStorage.length; k++){
-        console.log(k);
+        //console.log(k);
         tableau.push(productsAlreadyInLocalStorage[k].productId);
     }
-    console.log(tableau);
+    //console.log(tableau);
+    products=tableau;    
+    //console.log(products);
 }
 
-
-const tableaux=tableauIds();
-
-//console.log(tableaux);
+tableauIds();
 
 
-
-
+/*
     const order ={
         contact:{
             firstName:firstName.value,
@@ -149,9 +147,27 @@ const tableaux=tableauIds();
             email:email.value
         }
         
-        
-        //products: tableau;
-        //console.log (products)
+*/
+
+
+class Answer {
+    constructor(jsonAnswer){
+        jsonAnswer && Object.assign(this, jsonAnswer);
+    }
+  }
+
+
+
+const order ={
+    contact:{
+        firstName:"monchatre",
+        lastName:"Michel",
+        address:"2 rue de la martiniere",
+        city: "Palaiseau",
+        email:"michel.monchatre@gmail.com"
+    },
+    products
+//        console.log (products)
     }
     console.log(order);
 
@@ -163,5 +179,13 @@ const tableaux=tableauIds();
         body: JSON.stringify(order),
       };
 
-    //  fetch("http://localhost:3000/api/teddies/order", init) 
+   fetch("http://localhost:3000/api/teddies/order", init) 
+    .then(res => res.text())
+    .then(res => {
+
+        console.log(res);
+        //console.log(res.orderId)
+    })
+    .catch(err => console.error(err));
+
 

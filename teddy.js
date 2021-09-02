@@ -18,16 +18,13 @@ loadConfig().then(data => {
         teddyPage(article);
     })
     .catch(error => alert("Erreur : " + error));
-} );
+});
 
 function teddyPage (article){
     let listeOptions="";
     for (let couleur of article.colors) {
         listeOptions += `<OPTION value="${couleur}"> ${couleur}</OPTION>`
 	}
-
-    
-
     document.querySelector(".container").innerHTML += `<div class="col-12 mt-5">
     <div class="card article">
         <div class="card-header">
@@ -47,13 +44,36 @@ function teddyPage (article){
             <span class="col-6">
                 Prix ${article.price /100} € 
             </span>
-            <span><input type="button" value="-" class="minus minus-js"><input type="number" step="1" min="1" name="quantity" value="1" id="quantity"><input type="button" value="+" class="plus plus-js"></span>
-
+            <span>
+            <input type="button" id="teddyMinus" value="-" class="btn btn-outline-danger">
+            <input type="number" step="1" min="1" name="teddyQuantity" value="1" id="teddyQuantity">
+            <input type="button" id="teddyPlus" value="+" class="btn btn-outline-success"></span>
             <span >
-                <button name="btnAjouterAuPanier" type="submit" id="btnAjouterAuPanier" class="btn bg-darkpink col-6">Ajouter au Panier</button>
+                <button name="btnAjouterAuPanier" type="submit" id="btnAjouterAuPanier" class="btn btn-success col-6">Ajouter au Panier</button>
             </span>
         </div>
     </div>`; 
+        
+    $("#teddyMinus").click(function() {
+        if (parseInt($("#teddyQuantity").val()) != 0) {
+        let result = parseInt($("#teddyQuantity").val()) - 1;
+        $("#teddyQuantity").val(result);
+        }
+    })
+
+    $("#teddyPlus").click(function(event) {
+        var maxLength = parseInt($("#teddyQuantity").attr("max"));
+        console.log(maxLength);
+
+        let result = parseInt($("#teddyQuantity").val()) + 1;
+        if (result > maxLength) {
+        alert("Max Teddy limit is: "+maxLength);
+        event.preventDefault();
+        return false;
+        } else {
+        $("#teddyQuantity").val(result);
+        }
+    })
 
     //selection du bouton Ajouter l'article dans le panier
     const AjouterAuPanier = document.querySelector("#btnAjouterAuPanier")
@@ -62,17 +82,13 @@ function teddyPage (article){
         //recuperation de la couleur du formulaire
         const couleur = document.querySelector("#couleurTeddy");
         //recuperation des valeurs du formulaire
-
-        //console.log(article.name, couleur.value, article.price/100)
-
-
         let optionsTeddy={
             ImageTeddy:article.imageUrl,
             nomTeddy:article.name,
             prixTeddy:article.price,
             productId:article._id,
             couleurTeddy:couleur.value,
-            qtyTeddy:quantity.value,
+            qtyTeddy:teddyQuantity.value,
         }
 
             //console.log(optionsTeddy)
@@ -87,44 +103,45 @@ function teddyPage (article){
         }
 
         //-------------------------------- local storage  ----------------------------------
-        let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+        
 
         const AjoutNewTeddyDansPanier =() => {
-
-            //lecture du panier pour trouver les id et couleurs correspondantes
-            // si id et couleur déja présents, il faut ajouter 1 a la qty, ne pas faire de push, mais changer les valeurs dans le local storage
-            // fonction d'ajout d'un teddy dans le panier et sauvegarde dans le local storage
-
-            /*            productsAlreadyInLocalStorage.forEach(function(product){
-                if (${product.couleur == couleurTeddy:couleur.value)
-
-
-                    */
-
-
-
             productsAlreadyInLocalStorage.push(optionsTeddy);
             localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
         }
 
+
+        done=false;
+        let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
             // if basket not empty
             if (productsAlreadyInLocalStorage){
+                //lecture du panier pour trouver les id et couleurs correspondantes
+                // si id et couleur déja présents, on ajoute 1 a la qty, pas de push,et sauvegarde du local storage
+                
+                productsAlreadyInLocalStorage.forEach(function(product){
+                    if (( article._id === product.productId ) && (couleur.value === product.couleurTeddy)) {
+                        product.qtyTeddy = parseInt(product.qtyTeddy) + parseInt(teddyQuantity.value);
+                        done= true;    
+                    }else{
+                       // done=false;
+                    }
+                });
+
+                if (done){
+                    localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
+                }else{
+                    AjoutNewTeddyDansPanier();    
+                }
+
+            } else {
+                //if basket empty:
+                productsAlreadyInLocalStorage =[]; 
                 AjoutNewTeddyDansPanier();
-                //console.log(productsAlreadyInLocalStorage)
-                demandeConfirmation();
-            } 
-            //if basket empty:
-            else {
-                productsAlreadyInLocalStorage =[];
-                AjoutNewTeddyDansPanier();
-                demandeConfirmation();
+                //demandeConfirmation();
             }
-
-            //end event listener
         })
-   
-
 }
+
 
 
 
