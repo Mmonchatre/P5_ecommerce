@@ -1,79 +1,50 @@
 
+
+let champsObligatoires = [];
+champsObligatoires = [ "lastName", "firstName", "email", "address", "city"];
 // activation du bouton envoi si champ_obligatoires remplis
 
-/*
 function verif_champs(){
-    var champ_obligatoire = [ "lastName", "firstName", "email", "address", "city"];
+    //let champsObligatoires = [];
+    //champsObligatoires = [ "lastName", "firstName", "email", "address", "city"];
     //console.log(champ_obligatoire);
     var champs_pleins = true;
-    for (var h=0; h < champ_obligatoire.length; h++)
-    {
-        const champ=document.getElementById(document.getElementById(champ_obligatoire[h]);
-        console.log(champ);
-        //console.log(h);
-        //console.log(champ_obligatoire.length);
-        valeur = document.getElementById(champ_obligatoire[h].value);
-        //console.log(champ_obligatoire[h]);
-        //console.log(valeur);
+    champsObligatoires.forEach(champ => {
+        valeur = document.getElementById(champ).value;
         if((valeur == "") || (valeur === null) ){
             champs_pleins = champs_pleins && false;
-            }else{
-                champs_pleins = true;
-            }
-        console.log("final", champs_pleins);        
-    }   
+        }else{
+            champs_pleins = true;
+        }
+    });
     if (champs_pleins){
         document.getElementById("envoi").disabled = false;
     }else{
         document.getElementById("envoi").disabled = true;
     }
 }
+// fin activation du bouton envoi si champ_obligatoires remplis
 
-*/
+verif_champs();
 
-
-
-document.querySelector(".form-control").addEventListener("click",function(){
-    var valid = true;
-    for(let input of document.querySelectorAll(".form input,.form textarea")){
-
-        // console.log(input);
-
-        valid &= input.reportValidity();
-        if(!valid){
-            break;
+function relanceVerifChamps(){
+    champsObligatoires.forEach(champ => {
+        document.getElementById(champ).onchange = function() {
+            verif_champs();
         }
-    }
-    if(valid){
-        end_form();
-    // recuperation des valeurs a envoyer en POST.
-    let contact={
-        /*
-            *   firstName: string,
-            *   lastName: string,
-            *   address: string,
-            *   city: string,
-            *   email: string
-  
-        */
-        firstName:firstname.value,
-        lastName:lastname.value,
-        address:address.value,
-        city: city.value,
-        email:email.value
-    }
-        alert("Votre commande a bien été enregistrée.");
-    }
+    });
+} 
 
-});
+relanceVerifChamps();
 
 
 
 
-// generation du recapitulatif ( nom, couleur et prix de chaque element + total ) du panier :
+
+// generation du recapitulatif ( nom, option et prix de chaque element + total ) du panier :
 
 function basketRecap() {
-    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     let BasketRecapStructure ="";
     const basketRecap = document.querySelector("#ContainerBasketRecap");
     //basketRecap.innerHTML +=BasketRecapStructure;
@@ -89,26 +60,27 @@ function basketRecap() {
             BasketRecapStructure = BasketRecapStructure + `
                     <tr>
                     <td>
-                        ${productsAlreadyInLocalStorage[k].nomTeddy}
+                        ${productsAlreadyInLocalStorage[k].nomArticle}
                     </td>
                     <td>
-                        ${productsAlreadyInLocalStorage[k].couleurTeddy}
+                        ${productsAlreadyInLocalStorage[k].optionArticle}
                     </td>
                     <td>
-                        ${productsAlreadyInLocalStorage[k].qtyTeddy} 
+                        ${productsAlreadyInLocalStorage[k].qtyArticle} 
                     </td>
                     <td>
-                        ${productsAlreadyInLocalStorage[k].prixTeddy/100} € 
+                        ${productsAlreadyInLocalStorage[k].prixArticle/100} € 
                     </td>
                     </tr>
+                    
                 
             `;
-            PrixTotal += productsAlreadyInLocalStorage[k].prixTeddy * productsAlreadyInLocalStorage[k].qtyTeddy
+            PrixTotal += productsAlreadyInLocalStorage[k].prixArticle * productsAlreadyInLocalStorage[k].qtyArticle
         }
         BasketRecapStructure = BasketRecapStructure + `
-            <div class="row">
-                <div class="text-center recap">Total de votre commande: ${PrixTotal/100} €</div>
-            </div>
+            <tr>
+            <td colspan="4" class="text-center text-uppercase">Total de votre commande: <span class="font-weight-bold">${PrixTotal/100} €</span></td>
+            </tr>
         `;
         basketRecap.innerHTML +=BasketRecapStructure;
         // gestion bouton de passage de la commande 
@@ -124,7 +96,7 @@ basketRecap()
 
 function tableauIds()  {
     let tableau =[];
-    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     for (k=0; k < productsAlreadyInLocalStorage.length; k++){
         //console.log(k);
         tableau.push(productsAlreadyInLocalStorage[k].productId);
@@ -137,7 +109,7 @@ function tableauIds()  {
 tableauIds();
 
 
-/*
+document.getElementById("envoi").onclick = function() {
     const order ={
         contact:{
             firstName:firstName.value,
@@ -145,40 +117,23 @@ tableauIds();
             address:address.value,
             city: city.value,
             email:email.value
-        }
-        
-*/
-
-
-class Answer {
-    constructor(jsonAnswer){
-        jsonAnswer && Object.assign(this, jsonAnswer);
-    }
-  }
-
-
-
-const order ={
-    contact:{
-        firstName:"monchatre",
-        lastName:"Michel",
-        address:"2 rue de la martiniere",
-        city: "Palaiseau",
-        email:"michel.monchatre@gmail.com"
-    },
-    products
-//        console.log (products)
-    }
-    console.log(order);
-
-    const init = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify(order),
-      };
+        products
+    //        console.log (products)
+        }
+        console.log(order);
 
+        const init = {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(order),
+        };
+
+
+
+   //fetch("http://localhost:3000/api/teddies/order", init) 
    fetch("http://localhost:3000/api/teddies/order", init) 
     .then(res => res.text())
     .then(res => {
@@ -188,4 +143,47 @@ const order ={
     })
     .catch(err => console.error(err));
 
+}
 
+
+
+
+
+/*
+
+document.querySelector("#envoi").addEventListener("click",function(){
+    var valid = true;
+    for(let input of document.querySelectorAll(".form input,.form textarea")){
+
+        // console.log(input);
+
+        valid &= input.reportValidity();
+        if(!valid){
+            break;
+        }
+    }
+    if(valid){
+        //end_form();
+    // recuperation des valeurs a envoyer en POST.
+    let contact={
+        /*
+            *   firstName: string,
+            *   lastName: string,
+            *   address: string,
+            *   city: string,
+            *   email: string
+  
+
+        firstName:firstName.value,
+        lastName:lastName.value,
+        address:address.value,
+        city: city.value,
+        email:email.value
+    }
+        alert("Votre commande a bien été enregistrée.");
+    }
+
+});
+
+
+*/

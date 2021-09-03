@@ -1,26 +1,25 @@
 /**
- * recuperation de l'id dans la chaine de l'url et affichage du detail du teddy 
+ * recuperation de l'id dans la chaine de l'url et affichage du detail de l'article
  */
 
 const queryString_url_id = window.location.search;
 //console.log(queryString_url_id)
 
 // extraction de l'id avec slice 
-const teddyId = queryString_url_id.slice(1);
-//console.log(teddyId)
+const ArticleId = queryString_url_id.slice(1);
 
 loadConfig().then(data => {
     config = data;
-    fetch(config.host + "/api/teddies/"+ teddyId)
+    fetch(config.host + "/api/teddies/"+ ArticleId)
     .then(response => response.json())
     .then(response => {
         let article = new Article(response);
-        teddyPage(article);
+        ArticlePage(article);
     })
     .catch(error => alert("Erreur : " + error));
 });
 
-function teddyPage (article){
+function ArticlePage (article){
     let listeOptions="";
     for (let couleur of article.colors) {
         listeOptions += `<OPTION value="${couleur}"> ${couleur}</OPTION>`
@@ -34,7 +33,7 @@ function teddyPage (article){
 
         <div class="card-body">
             <div class="card-text">
-            Options: <FORM><SELECT name="couleurTeddy" id="couleurTeddy" size="1">
+            Options: <FORM><SELECT name="couleurArticle" id="couleurArticle" size="1">
             ${listeOptions}
             </SELECT></FORM>
             Description:<br>${article.description}
@@ -45,33 +44,33 @@ function teddyPage (article){
                 Prix ${article.price /100} € 
             </span>
             <span>
-            <input type="button" id="teddyMinus" value="-" class="btn btn-outline-danger">
-            <input type="number" step="1" min="1" name="teddyQuantity" value="1" id="teddyQuantity">
-            <input type="button" id="teddyPlus" value="+" class="btn btn-outline-success"></span>
+            <input type="button" id="articleMinus" value="-" class="btn btn-outline-danger">
+            <input type="number" step="1" min="1" name="articleQuantity" value="1" id="articleQuantity">
+            <input type="button" id="articlePlus" value="+" class="btn btn-outline-success"></span>
             <span >
                 <button name="btnAjouterAuPanier" type="submit" id="btnAjouterAuPanier" class="btn btn-success col-6">Ajouter au Panier</button>
             </span>
         </div>
     </div>`; 
         
-    $("#teddyMinus").click(function() {
-        if (parseInt($("#teddyQuantity").val()) != 0) {
-        let result = parseInt($("#teddyQuantity").val()) - 1;
-        $("#teddyQuantity").val(result);
+    $("#articleMinus").click(function() {
+        if (parseInt($("#articleQuantity").val()) != 0) {
+        let result = parseInt($("#articleQuantity").val()) - 1;
+        $("#articleQuantity").val(result);
         }
     })
 
-    $("#teddyPlus").click(function(event) {
-        var maxLength = parseInt($("#teddyQuantity").attr("max"));
+    $("#articlePlus").click(function(event) {
+        var maxLength = parseInt($("#articleQuantity").attr("max"));
         console.log(maxLength);
 
-        let result = parseInt($("#teddyQuantity").val()) + 1;
+        let result = parseInt($("#articleQuantity").val()) + 1;
         if (result > maxLength) {
-        alert("Max Teddy limit is: "+maxLength);
+        alert("Max Article limit is: "+maxLength);
         event.preventDefault();
         return false;
         } else {
-        $("#teddyQuantity").val(result);
+        $("#articleQuantity").val(result);
         }
     })
 
@@ -80,18 +79,18 @@ function teddyPage (article){
     AjouterAuPanier.addEventListener("click", (event)=>{
         event.preventDefault();
         //recuperation de la couleur du formulaire
-        const couleur = document.querySelector("#couleurTeddy");
+        const couleur = document.querySelector("#couleurArticle");
         //recuperation des valeurs du formulaire
-        let optionsTeddy={
-            ImageTeddy:article.imageUrl,
-            nomTeddy:article.name,
-            prixTeddy:article.price,
+        let optionsArticle={
+            ImageArticle:article.imageUrl,
+            nomArticle:article.name,
+            prixArticle:article.price,
             productId:article._id,
-            couleurTeddy:couleur.value,
-            qtyTeddy:teddyQuantity.value,
+            couleurArticle:couleur.value,
+            qtyArticle:articleQuantity.value,
         }
 
-            //console.log(optionsTeddy)
+
 
         const demandeConfirmation=()=> {
             if(window.confirm(`${article.name} option:${couleur.value} a bien été ajouté, Consulter le Panier OK ou revenir a la liste des produits ANNULER`)) 
@@ -105,22 +104,22 @@ function teddyPage (article){
         //-------------------------------- local storage  ----------------------------------
         
 
-        const AjoutNewTeddyDansPanier =() => {
-            productsAlreadyInLocalStorage.push(optionsTeddy);
-            localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
+        const AjoutNewArticleDansPanier =() => {
+            productsAlreadyInLocalStorage.push(optionsArticle);
+            localStorage.setItem("Articles", JSON.stringify(productsAlreadyInLocalStorage));
         }
 
 
         done=false;
-        let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+        let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
             // if basket not empty
             if (productsAlreadyInLocalStorage){
                 //lecture du panier pour trouver les id et couleurs correspondantes
                 // si id et couleur déja présents, on ajoute 1 a la qty, pas de push,et sauvegarde du local storage
                 
                 productsAlreadyInLocalStorage.forEach(function(product){
-                    if (( article._id === product.productId ) && (couleur.value === product.couleurTeddy)) {
-                        product.qtyTeddy = parseInt(product.qtyTeddy) + parseInt(teddyQuantity.value);
+                    if (( article._id === product.productId ) && (couleur.value === product.couleurArticle)) {
+                        product.qtyArticle = parseInt(product.qtyArticle) + parseInt(articleQuantity.value);
                         done= true;    
                     }else{
                        // done=false;
@@ -128,16 +127,17 @@ function teddyPage (article){
                 });
 
                 if (done){
-                    localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
+                    localStorage.setItem("Articles", JSON.stringify(productsAlreadyInLocalStorage));
                 }else{
-                    AjoutNewTeddyDansPanier();    
+                    AjoutNewArticleDansPanier()   ;
+                    demandeConfirmation();
                 }
 
             } else {
                 //if basket empty:
                 productsAlreadyInLocalStorage =[]; 
-                AjoutNewTeddyDansPanier();
-                //demandeConfirmation();
+                AjoutNewArticleDansPanier()   ;
+                demandeConfirmation();
             }
         })
 }

@@ -6,7 +6,7 @@ loadConfig().then(data => {
     fetch("localhost:3000/api/teddies").then(data => data.json())
         .then(jsonListArticle => {
             for (let jsonArticle of jsonListArticle) {
-                let article = new Teddy(jsonArticle);
+                let article = new Article(jsonArticle);
                 document.querySelector(".container").innerHTML += `<div class="col-12 mt-5">
                                                                         <div class="card article">
                                                                             <div class="card-header">

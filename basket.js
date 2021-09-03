@@ -1,6 +1,6 @@
 function basketDisplay() {
     //recup du LocalStorage (productsAlreadyInLocalStorage);
-    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     let BasketStructure ="";
     const basketContents = document.querySelector("#Container_BasketContents");
     basketContents.innerHTML +=BasketStructure;
@@ -11,7 +11,7 @@ function basketDisplay() {
         let BasketStructure =`<div class="row">
         <span class="col-2"></span>
         <span class="col">Produit</span>
-        <span class="col">Couleur</span>
+        <span class="col">Option</span>
         <span class="col">Prix</span>
         <span class="col">Qty</span>
         <span class="col">Prix sous total</span>
@@ -25,31 +25,31 @@ function basketDisplay() {
 
             BasketStructure += `
                 <div class="row border">
-                    <img src="${product.ImageTeddy}" alt="Bootstrap" class="img-circle img-thumbnail col-2 align-middle ">
+                    <img src="${product.ImageArticle}" alt="Bootstrap" class="img-circle img-thumbnail col-2 align-middle ">
                     <span class="col align-middle">
-                        ${product.nomTeddy}
+                        ${product.nomArticle}
                     </span>
                     <span class="col align-middle">
-                        ${product.couleurTeddy}
+                        ${product.optionArticle}
                     </span>
                     <span class="col align-middle">
-                        ${product.prixTeddy/100} € 
+                        ${product.prixArticle/100} € 
                     </span>
                     <!-- <span class="col align-middle"> -->
                     <span>
-                    <input type="button" value="-" class="minusTeddy">
-                    <input type="number" step="1" min="1" name="quantity" value="${product.qtyTeddy}" title="Qty" class="teddyQuantity">
-                    <input type="button" value="+" class="plusTeddy">
+                    <input type="button" value="-" class="minusArticle">
+                    <input type="number" step="1" min="1" name="quantity" value="${product.qtyArticle}" title="Qty" class="articleQuantity">
+                    <input type="button" value="+" class="plusArticle">
                     </span>
                     <span class="col align-middle">
-                        ${product.prixTeddy/100*product.qtyTeddy}
+                        ${product.prixArticle/100*product.qtyArticle}
                     </span>
                     <span class="col align-middle text-right">
                         <button class="btn btn-supprimer-article"><i class="far fa-trash-alt red"></i></button>
                     </span>
                 </div>
             `;
-            PrixTotal += product.prixTeddy*product.qtyTeddy
+            PrixTotal += product.prixArticle*product.qtyArticle
         });
         BasketStructure = BasketStructure + `
             <div class="row align-start">
@@ -83,11 +83,9 @@ function basketDisplay() {
 }
 // fin fonction basketDisplay !----
 
-
-
 // --- suppression d'un article du panier :
 function deleteArticle () {
-    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     //recuperation du numero du bouton selectionné.
     let btns_supprimer = document.querySelectorAll(".btn-supprimer-article");
     //recuperation du numero du bouton pour suppression de l'element correspndant dans le tableau :
@@ -95,8 +93,8 @@ function deleteArticle () {
         btns_supprimer[w].addEventListener("click",(e) =>{
             e.preventDefault();
             if(window.confirm("vous allez supprimer un produit OK pour confirmer")){
-                teddyRemoved = productsAlreadyInLocalStorage.splice(w, 1);
-                localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
+                articleRemoved = productsAlreadyInLocalStorage.splice(w, 1);
+                localStorage.setItem("Articles", JSON.stringify(productsAlreadyInLocalStorage));
                 refreshBasket();
             }
         })
@@ -104,41 +102,47 @@ function deleteArticle () {
 }
 // --- fin fonction suppression d'un article du panier !...
 
-function addTeddyQuantity () {
-    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+function addArticleQuantity () {
+    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     //recuperation du numero du bouton selectionné.
-    let btns_plusTeddy = document.querySelectorAll(".plusTeddy");
+    let btns_plusArticle = document.querySelectorAll(".plusArticle");
     //recuperation du numero du bouton pour ajout de 1 element correspondant dans le tableau :
-    for (let q=0; q < btns_plusTeddy.length; q++) {
-        btns_plusTeddy[q].addEventListener("click",(e) =>{
+    for (let q=0; q < btns_plusArticle.length; q++) {
+        btns_plusArticle[q].addEventListener("click",(e) =>{
             e.preventDefault();
-            productsAlreadyInLocalStorage[q].qtyTeddy = parseInt(productsAlreadyInLocalStorage[q].qtyTeddy)+ 1;
-            localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
+            productsAlreadyInLocalStorage[q].qtyArticle = parseInt(productsAlreadyInLocalStorage[q].qtyArticle)+ 1;
+            localStorage.setItem("Articles", JSON.stringify(productsAlreadyInLocalStorage));
             refreshBasket();
         })
     }
 }
 
-function delTeddyQuantity () {
-    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("teddy"));
+function delArticleQuantity () {
+    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     //recuperation du numero du bouton selectionné.
-    let btns_minusTeddy = document.querySelectorAll(".minusTeddy");
+    let btns_minusArticle = document.querySelectorAll(".minusArticle");
     //recuperation du numero du bouton pour ajout de 1 element correspondant dans le tableau :
-    for (let q=0; q < btns_minusTeddy.length; q++) {
-        btns_minusTeddy[q].addEventListener("click",(e) =>{
+    for (let q=0; q < btns_minusArticle.length; q++) {
+        btns_minusArticle[q].addEventListener("click",(e) =>{
             e.preventDefault();
-            if (productsAlreadyInLocalStorage[q].qtyTeddy > 0) {
-                productsAlreadyInLocalStorage[q].qtyTeddy = parseInt(productsAlreadyInLocalStorage[q].qtyTeddy)- 1;
-                localStorage.setItem("teddy", JSON.stringify(productsAlreadyInLocalStorage));
+            if (productsAlreadyInLocalStorage[q].qtyArticle >= 1 ) {
+                productsAlreadyInLocalStorage[q].qtyArticle = parseInt(productsAlreadyInLocalStorage[q].qtyArticle)- 1;
+                localStorage.setItem("Articles", JSON.stringify(productsAlreadyInLocalStorage));
                 refreshBasket()
+            }else
+            {
+            // si qty =0, on supprime la ligne du panier.
+            articleRemoved = productsAlreadyInLocalStorage.splice(q, 1);
+            localStorage.setItem("Articles", JSON.stringify(productsAlreadyInLocalStorage));
+            refreshBasket();
             }
             })
         }
 }
 
 basketDisplay();
-addTeddyQuantity();
-delTeddyQuantity();
+addArticleQuantity();
+delArticleQuantity();
 deleteArticle();
 
 
@@ -146,8 +150,8 @@ function refreshBasket () {
     const myNode = document.getElementById("Container_BasketContents");
     myNode.textContent = '';
     basketDisplay();
-    addTeddyQuantity();
-    delTeddyQuantity();
+    addArticleQuantity();
+    delArticleQuantity();
     deleteArticle();
 }
 

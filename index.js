@@ -1,9 +1,18 @@
 /**
- * Gère l'affichage de la liste des Teddies 
+ * Gère l'affichage de la liste des Articles
  */
+
+
+
 loadConfig().then(data => {
     config = data;
-    fetch(config.host + "/api/teddies").then(data => data.json())
+
+    console.log (config.host);
+    console.log(config.articles);
+    
+
+    //fetch(config.host + "/api/teddies").then(data => data.json())
+    fetch(config.host + "/api/"+config.articles+"").then(data => data.json())
         .then(jsonListArticle => {
             for (let jsonArticle of jsonListArticle) {
                 let article = new Article(jsonArticle);
@@ -14,7 +23,7 @@ loadConfig().then(data => {
                                                                         <div class="card article">
                                                                             <div class="card-header">
                                                                                 <h5 class="card-title d-flex justify-content-between">${article.name}
-                                                                                </span><a href="./teddy.html?${article._id}" class="stretched-link" ></a></h5>
+                                                                                </span><a href="./article.html?${article._id}" class="stretched-link" ></a></h5>
                                                                             </div>
                                                                             <img src="${article.imageUrl}" class="card-img-top img-thumbnail">
 
