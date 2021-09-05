@@ -1,4 +1,5 @@
 function basketDisplay() {
+    PrixTotal=0;
     //recup du LocalStorage (productsAlreadyInLocalStorage);
     let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     let BasketStructure ="";
@@ -19,10 +20,7 @@ function basketDisplay() {
         </div>
         `;
 
-        let PrixTotal = 0 ;
-
         productsAlreadyInLocalStorage.forEach(function(product){
-
             BasketStructure += `
                 <div class="row border">
                     <img src="${product.ImageArticle}" alt="Bootstrap" class="img-circle img-thumbnail col-2 align-middle ">
@@ -67,19 +65,7 @@ function basketDisplay() {
             window.location.href="order.html"
         })
     }
-    /* ---------------- option affichage bouton de/et vidage du panier ------------------------
-    const btn_vidage_panier = `
-    <button id="IdBtnVidagePanier" class="btn-vidage-panier col-12 btn-warning"> vider le panier</button>
-    `;
-    basketContents.insertAdjacentHTML("beforeend",btn_vidage_panier);
-    const Id_btn_vidage_panier =document.querySelector("#IdBtnVidagePanier");
-    Id_btn_vidage_panier.addEventListener("click", (e)=> {
-        e.preventDefault;
-        localStorage.removeItem("teddy");
-        alert("Le panier a été vidé");
-        window.location.href="basket.html"
-    })
-*/    // ---------------- vidage du panier Fin !------------------------
+    console.log("prixtotal dans basket display",PrixTotal)
 }
 // fin fonction basketDisplay !----
 
@@ -155,14 +141,198 @@ function refreshBasket () {
     deleteArticle();
 }
 
-/* 
-confirmation en HTML  et JS :
-        <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
-            <h5 class="alert-heading">Suppression d'un article</h5>
-            <p>vous allez supprimer un article <a href="#" class="alert-link">Continuer</a> !</p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+// verification des contenus des champs pour la commande fetch POST
+// activation du bouton envoi si champ_obligatoires remplis
+
+let champsObligatoires = [];
+champsObligatoires = [ "lastName", "firstName", "email", "address", "city"];
+var champs_pleins = true;
+
+
+
+const firstNameVerif = (champ) => {
+    valeur = document.getElementById(champ).value;
+    if ( (!valeur.match(/^[a-zA-Z|\s-]*$/)) || (valeur == "") ){
+        champs_pleins = false;
+        message="Le prénom ne peux pas contenir de caractères spéciaux ou de chiffres"
+      afficheMessage(message);
+    }else{
+        champs_pleins = champs_pleins  && true;
+    }
+  };
+
+
+//document.getElementById("firstName").onchange = function() {
+    //firstNameVerif("firstName")
+//}
+
+
+function afficheMessage (message) {
+    const Affichemessage = document.querySelector("#server_order_reponse");
+    Affichemessage.innerHTML =message;
+}
+
+function verif_champs(){
+    afficheMessage("");
+    
+    var champs_pleins = true;
+    champsObligatoires.forEach(champ => {
+        valeur = document.getElementById(champ).value;
+
+                if((valeur == " ") || (valeur === null) || (valeur === "") ){
+                    champs_pleins = false;
+                }else{
+                    champs_pleins = champs_pleins && true;
+                }
+    });
+    if (champs_pleins){
+        document.getElementById("envoi").disabled = false;
+    }else{
+        document.getElementById("envoi").disabled = true;
+    }
+ 
+}
+
+
+verif_champs();
+
+// fin verif_champ()
+
+
+
+/*
+const lastNameVerif = (valeur) => {
+    if (!valeur.match(/^[a-zA-Z|\s-]*$/)) {
+        champs_pleins = champs_pleins && false;
+      alert(
+        "Le nom ne peux pas contenir de caractères spéciaux ou de chiffres"
+      );
+    } else {
+        champs_pleins = champs_pleins  && true;
+    }
+  };
 */
+
+/*
+  const emailVerif = (valeur) => {
+    if (!valeur.match(/^[a-zA-Z|\s-]*$/)) {
+        champs_pleins = champs_pleins && false;
+      alert(
+        "Le nom ne peux pas contenir de caractères spéciaux ou de chiffres"
+      );
+    } else {
+        champs_pleins = champs_pleins  && true;
+    }
+  };
+*/
+  
+/*
+const CityVerif = (valeur) => {
+    if (!valeur.match(/^[a-zA-Z|\s-]*$/)) {
+        champs_pleins = champs_pleins && false;
+      alert(
+        "Le nom ne peux pas contenir de caractères spéciaux ou de chiffres"
+      );
+    } else {
+        champs_pleins = champs_pleins  && true;
+    }
+  };
+
+*/
+
+/*
+  const addressVerif = (valeur) => {
+    if (!valeur.match(/^[a-zA-Z|\s-]*$/)) {
+        champs_pleins = champs_pleins && false;
+      alert(
+        "Le nom ne peux pas contenir de caractères spéciaux ou de chiffres"
+      );
+    } else {
+        champs_pleins = champs_pleins  && true;
+    }
+  };
+
+*/
+
+// fin activation du bouton envoi si champ_obligatoires remplis
+
+
+
+function relanceVerifChamps(){
+    champsObligatoires.forEach(champ => {
+        document.getElementById(champ).onchange = function() {
+            verif_champs();
+            //FonctionVerif()= champ+"verif()";
+            //FonctionVerif();
+            
+        }
+    });
+} 
+relanceVerifChamps();
+
+//preparation de fetch POST :
+
+function tableauIds()  {
+    let tableau =[];
+    let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
+    for (k=0; k < productsAlreadyInLocalStorage.length; k++){
+        tableau.push(productsAlreadyInLocalStorage[k].productId);
+    };
+    products=tableau;    
+}
+tableauIds();
+
+
+function OrderConfirmationPage(orderAnswer){
+    
+}
+
+
+
+
+function serverOrder () {
+    const order ={
+        contact:{
+            firstName:firstName.value,
+            lastName:lastName.value,
+            address:address.value,
+            city: city.value,
+            email:email.value
+            },
+        products
+        }
+        
+        const init = {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(order),
+        };
+
+        fetch("http://localhost:3000/api/teddies/order", init) 
+            .then(response => response.json())
+            .then(response => {
+                //let orderAnswer = new orderAnswer(response);
+                orderId=response.orderId
+                if (orderId != undefined) {
+
+                    let message="votre commande "+ orderId+ " d'un montant de "+ PrixTotal/100 +"€ a bien été passée";
+                    afficheMessage(message);
+                    const page2open ="orderConfirmation.html?"+orderId
+                    window.location=page2open;
+                    
+                    
+                }else{
+                    let message="Une erreur est survenue , votre commande n'a pas pu être passée";
+                    afficheMessage(message);
+                }
+            })
+            .catch(error => alert("Erreur : " + error));
+}
+
+//OrderConfirmationPage()
+document.getElementById("envoi").onclick = function()  {
+    serverOrder();
+}
 

@@ -39,19 +39,42 @@
         </div>
     </nav>
 
-    <nav class="navbar fixed-bottom navbar-light">
-        <span class="navbar-text">
-            @copyrights Orinoco 2021-2100
-        </span>
-    </nav>
+    <div class="container" id="confirmation" display >
+        <h1>Validation de votre commande</h1>
+        <p>
+            félicitations, votre commande <span id="orderId" class="font-weight-bold "></span> a bien été passée.
 
-    <div class="container">
-        <h1>Vous avez choisi:</h1>
-    </div>
-    <script src="../../js/article.js"></script>
-    <script src="../../js/config.js"></script>
+            vous trouverez ci dessous le recapitulatif:
 
-    <script src="article.js"></script>
+        </p>
+        
+        
+        <div class="row">
+            <div class="col">
+                <h4>Récapitulatif</h4>
+                <table class="table cart">
+                    <thead>
+                        <tr>
+                            <th class="cart-product-name">Produit</th>
+                            <th class="cart-product-option">Option</th>
+                            <th class="cart-product-qty">Qty</th>
+                            <th class="cart-product-price">Prix</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ContainerBasketRecap">
+                        
+                    </tbody>
+                </table> 
+            </div>
+        </div>  
+        
+            
+            
+    
+
+    <script src="orderConfirmation.js"></script>
+    <script src="./js/orderAnswer.js"></script>
+    
 
 </body>
 

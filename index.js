@@ -30,7 +30,7 @@ loadConfig().then(data => {
                                                                             <div class="card-body">
                                                                                 <p class="card-text">
                                                                                     <!--Description:<br>${article.description}-->
-                                                                                    <br>Prix ${article.price /100} € 
+                                                                                    <br>Prix ${article.price/100*1.00} € 
                                                                                 </p>
                                                                             </div>
                                                                         </div>
