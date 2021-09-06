@@ -2,12 +2,11 @@
 
 let champsObligatoires = [];
 champsObligatoires = [ "lastName", "firstName", "email", "address", "city"];
+
 // activation du bouton envoi si champ_obligatoires remplis
 
 function verif_champs(){
-    //let champsObligatoires = [];
-    //champsObligatoires = [ "lastName", "firstName", "email", "address", "city"];
-    //console.log(champ_obligatoire);
+
     var champs_pleins = true;
     champsObligatoires.forEach(champ => {
         valeur = document.getElementById(champ).value;
@@ -56,7 +55,7 @@ function basketRecap() {
         basketRecap.innerHTML +=BasketRecapStructure;
         let PrixTotal = 0 ;
         for (k=0; k < productsAlreadyInLocalStorage.length; k++){
-            //console.log (k);  // verif nombre element du panier 
+            
             BasketRecapStructure = BasketRecapStructure + `
                     <tr>
                     <td>
@@ -98,12 +97,10 @@ function tableauIds()  {
     let tableau =[];
     let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     for (k=0; k < productsAlreadyInLocalStorage.length; k++){
-        //console.log(k);
+        
         tableau.push(productsAlreadyInLocalStorage[k].productId);
     }
-    //console.log(tableau);
-    products=tableau;    
-    //console.log(products);
+    products=tableau;
 }
 
 tableauIds();
@@ -119,9 +116,7 @@ document.getElementById("envoi").onclick = function() {
             email:email.value
         },
         products
-    //        console.log (products)
         }
-        console.log(order);
 
         const init = {
             method: "POST",
@@ -137,9 +132,6 @@ document.getElementById("envoi").onclick = function() {
    fetch("http://localhost:3000/api/teddies/order", init) 
     .then(res => res.text())
     .then(res => {
-
-        console.log(res);
-        //console.log(res.orderId)
     })
     .catch(err => console.error(err));
 
@@ -154,8 +146,6 @@ document.getElementById("envoi").onclick = function() {
 document.querySelector("#envoi").addEventListener("click",function(){
     var valid = true;
     for(let input of document.querySelectorAll(".form input,.form textarea")){
-
-        // console.log(input);
 
         valid &= input.reportValidity();
         if(!valid){

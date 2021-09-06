@@ -1,18 +1,28 @@
-//extraction de l'ID de la commande :
+//extraction de l'ID de la commande avec slice 
+
 
 const queryString_orderId = window.location.search;
-console.log(queryString_orderId)
-
-// extraction de l'id avec slice 
 const orderId = queryString_orderId.slice(1);
 
+/*
+function processData()
+  {
+    var parameters = location.search.substring(1).split("&");
 
-console.log(orderId);
+    var temp = parameters[0].split("=");
+    l = unescape(temp[1]);
+    temp = parameters[1].split("=");
+    p = unescape(temp[1]);
+    document.getElementById("log").innerHTML = l;
+    document.getElementById("pass").innerHTML = p;
+  }
 
+
+processData()
+*/
 
 const fieldOrderID = document.getElementById("orderId")
 
-console.log (fieldOrderID);
 
 fieldOrderID.innerHTML = orderId;
 
@@ -37,7 +47,7 @@ function basketRecap(PrixTotal) {
         basketRecap.innerHTML +=BasketRecapStructure;
         let PrixTotal = 0 ;
         for (k=0; k < productsAlreadyInLocalStorage.length; k++){
-            //console.log (k);  // verif nombre element du panier 
+            
             BasketRecapStructure = BasketRecapStructure + `
                     <tr>
                     <td>
@@ -71,6 +81,11 @@ function basketRecap(PrixTotal) {
 // fin fonction basketRecap !----
 
 basketRecap();
+
+emptyBasket();
+function emptyBasket () {
+            localStorage.removeItem("Articles");
+        }
 
 
 

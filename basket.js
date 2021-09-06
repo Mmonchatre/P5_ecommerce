@@ -1,3 +1,5 @@
+loadConfig();
+
 function basketDisplay() {
     PrixTotal=0;
     //recup du LocalStorage (productsAlreadyInLocalStorage);
@@ -65,7 +67,7 @@ function basketDisplay() {
             window.location.href="order.html"
         })
     }
-    console.log("prixtotal dans basket display",PrixTotal)
+    
 }
 // fin fonction basketDisplay !----
 
@@ -168,7 +170,7 @@ const firstNameVerif = (champ) => {
 
 
 function afficheMessage (message) {
-    const Affichemessage = document.querySelector("#server_order_reponse");
+    const Affichemessage = document.querySelector("#messages");
     Affichemessage.innerHTML =message;
 }
 
@@ -283,56 +285,62 @@ function tableauIds()  {
 tableauIds();
 
 
-function OrderConfirmationPage(orderAnswer){
-    
-}
 
 
+//loadConfig().then(data => {
+//    config = data;
+
+    function serverOrder () {
+        //loadConfig();
+        //console.log("config.articles= ",config.articles);
+
+        const order ={
+            contact:{
+                firstName:firstName.value,
+                lastName:lastName.value,
+                address:address.value,
+                city: city.value,
+                email:email.value
+                },
+            products
+            }
+            
+            const init = {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify(order),
+            };
+
+            fetch("http://localhost:3000/api/teddies/order", init) 
+            //    fetch(config.host + "/api/"+config.articles+"/order", init)
+                .then(response => response.json())
+                .then(response => {
+                    //let orderAnswer = new orderAnswer(response);
+                    orderId=response.orderId
+                    if (orderId != undefined) {
+
+                        //let message="votre commande "+ orderId+ " d'un montant de "+ PrixTotal/100 +"€ a bien été passée";
+                        //afficheMessage(message);
+                        const page2open ="orderConfirmation.html?"+orderId;
+                        //const page2open ="orderConfirmation.html?orderId="'+${orderId}+'"&firstName="'+${firstName}+"&lastName="+${lastName}+'"'
+
+                        window.location=page2open;
+                        
+                        
+                    }else{
+                        let message="Une erreur est survenue , votre commande n'a pas pu être passée";
+                        afficheMessage(message);
+                    }
+                })
+                .catch(error => alert("Erreur : " + error));
+    }
+//});
 
 
-function serverOrder () {
-    const order ={
-        contact:{
-            firstName:firstName.value,
-            lastName:lastName.value,
-            address:address.value,
-            city: city.value,
-            email:email.value
-            },
-        products
-        }
-        
-        const init = {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(order),
-        };
-
-        fetch("http://localhost:3000/api/teddies/order", init) 
-            .then(response => response.json())
-            .then(response => {
-                //let orderAnswer = new orderAnswer(response);
-                orderId=response.orderId
-                if (orderId != undefined) {
-
-                    let message="votre commande "+ orderId+ " d'un montant de "+ PrixTotal/100 +"€ a bien été passée";
-                    afficheMessage(message);
-                    const page2open ="orderConfirmation.html?"+orderId
-                    window.location=page2open;
-                    
-                    
-                }else{
-                    let message="Une erreur est survenue , votre commande n'a pas pu être passée";
-                    afficheMessage(message);
-                }
-            })
-            .catch(error => alert("Erreur : " + error));
-}
-
-//OrderConfirmationPage()
+//Order Confirmation 
 document.getElementById("envoi").onclick = function()  {
-    serverOrder();
+    serverOrder(); 
 }
 

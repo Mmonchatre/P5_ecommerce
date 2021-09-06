@@ -2,8 +2,9 @@
  * recuperation de l'id dans la chaine de l'url et affichage du detail de l'article
  */
 
+
+
 const queryString_url_id = window.location.search;
-//console.log(queryString_url_id)
 // extraction de l'id avec slice 
 const ArticleId = queryString_url_id.slice(1);
  
@@ -26,14 +27,8 @@ function ArticlePage (article){
     let objets=[];
     // a debugger !!!!
     //for (let option of article.config.options) {  
-    console.log("article.colors=",article.colors);
-    //console.log(typeof(article.colors));
-    console.log ("config.options=" ,config.options);
-    //console.log("article.?", article.config.options);
-
     objets=article[0]; 
 
-    console.log(objets);
 
     for (let option of article.colors) {    
     //for (let option of ${article.${config.options}}) {
@@ -82,7 +77,6 @@ function ArticlePage (article){
          event.preventDefault();
          //recuperation de l'option du formulaire
          const option = document.querySelector("#optionArticle");
-         console.log(option);
          //recuperation des valeurs du formulaire
          let optionsArticle={
              ImageArticle:article.imageUrl,
@@ -93,14 +87,23 @@ function ArticlePage (article){
              qtyArticle:1,
          }
  
-         const demandeConfirmation=()=> {
-             if(window.confirm(`${article.name} option:${option.value} a bien été ajouté, Consulter le Panier OK ou revenir a la liste des produits ANNULER`)) 
+         const afficheConfirmation=()=> {
+            let message="Le produit "+ article.name + " avec l'option "+ option.value +" a bien été ajouté a votre panier";
+            
+            afficheMessage(message);
+
+            //let message="article.name option:${option.value} a bien été ajouté"
+            /*
+            if(window.confirm(`${article.name} option:${option.value} a bien été ajouté, Consulter le Panier OK ou revenir a la liste des produits ANNULER`)) 
              {
                  window.location.href="basket.html";
              }else{
                  window.location.href="index.html";
              }
+             */
          }
+
+
  
          //-------------------------------- local storage  ----------------------------------
          const AjoutNewArticleDansPanier =() => {
@@ -117,9 +120,10 @@ function ArticlePage (article){
                  
                  productsAlreadyInLocalStorage.forEach(function(product){
                      if (( article._id === product.productId ) && (option.value === product.optionArticle)) {
-                         //product.qtyArticle = parseInt(product.qtyArticle) + parseInt(articleQuantity.value);
-                         product.qtyArticle = parseInt(product.qtyArticle) + 1 ;
-                         done= true;    
+                        //product.qtyArticle = parseInt(product.qtyArticle) + parseInt(articleQuantity.value);
+                        product.qtyArticle = parseInt(product.qtyArticle) + 1 ;
+                        afficheConfirmation();
+                        done= true;    
                      }else{
                         // done=false;
                      }
@@ -129,14 +133,14 @@ function ArticlePage (article){
                      localStorage.setItem("Articles", JSON.stringify(productsAlreadyInLocalStorage));
                  }else{
                      AjoutNewArticleDansPanier()   ;
-                     demandeConfirmation();
+                     afficheConfirmation();
                  }
  
              } else {
                  //if basket empty:
                  productsAlreadyInLocalStorage =[]; 
                  AjoutNewArticleDansPanier()   ;
-                 demandeConfirmation();
+                 afficheConfirmation();
              }
          })
  }
