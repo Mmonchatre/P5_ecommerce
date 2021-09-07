@@ -30,8 +30,8 @@ function ArticlePage (article){
     objets=article[0]; 
 
 
-    for (let option of article.colors) {    
-    //for (let option of ${article.${config.options}}) {
+    //for (let option of article.colors) {    
+    for (let option of article[options]) {
 
          listeOptions += `<OPTION value="${option}"> ${option}</OPTION>`
      }
@@ -40,9 +40,9 @@ function ArticlePage (article){
          
         <div class="row">
          
-            <img src="${article.imageUrl}" class="card-img-left col-6">
+            <img src="${article.imageUrl}" class="card-img-left col-12 col-lg-6">
     
-            <div class="card-body col-6">
+            <div class="card-body col-12 col-lg-6">
                 <div class="card-header">
                 <h5 class="card-title d-flex justify-content-between">${article.name}</h5>
                 </div>

@@ -1,4 +1,4 @@
-loadConfig();
+//loadConfig();
 
 function basketDisplay() {
     PrixTotal=0;
@@ -284,15 +284,7 @@ function tableauIds()  {
 }
 tableauIds();
 
-
-
-
-//loadConfig().then(data => {
-//    config = data;
-
     function serverOrder () {
-        //loadConfig();
-        //console.log("config.articles= ",config.articles);
 
         const order ={
             contact:{
@@ -313,8 +305,11 @@ tableauIds();
                 body: JSON.stringify(order),
             };
 
-            fetch("http://localhost:3000/api/teddies/order", init) 
-            //    fetch(config.host + "/api/"+config.articles+"/order", init)
+            //fetch("http://localhost:3000/api/teddies/order", init) 
+
+            loadConfig().then(data => {
+                config = data;
+                fetch(config.host + "/api/"+config.articles+"/order", init)
                 .then(response => response.json())
                 .then(response => {
                     //let orderAnswer = new orderAnswer(response);
@@ -336,7 +331,13 @@ tableauIds();
                 })
                 .catch(error => alert("Erreur : " + error));
     }
+);
+    }
+//loadConfig().then(data => {
+//    config = data;
+
 //});
+
 
 
 //Order Confirmation 
@@ -344,3 +345,15 @@ document.getElementById("envoi").onclick = function()  {
     serverOrder(); 
 }
 
+var input=document.getElementById("firstName");
+console.log(input);
+input.addEventListener("input", function(e) {
+    console.log(e);
+    if (e.target.checkValidity()){
+    console.log("valid");
+    e.target.nextElementSibling.classList.add("valid");
+    } else {
+        e.target.nextElementSibling.classList.remove("valid");
+        console.log("invalid")
+    }
+});

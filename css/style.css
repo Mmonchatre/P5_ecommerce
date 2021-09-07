@@ -45,11 +45,22 @@ h1{
 }
 
 
+input:invalid {
+    position: relative;
+    border: red solid 3px;
+  }
+
+.valid {
+    display:none;
+}
+
 @media screen and (max-width: 780px){
     body{
         font-size: 1.4rem;
     }
 }
+
+
 
 .article{
     border: none;

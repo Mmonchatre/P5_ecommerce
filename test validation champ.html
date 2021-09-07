@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="description" content="Site Ecommerce Orinoco">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -46,10 +46,7 @@
     </div>
 </nav>
 
-<div class="container">
-    <h2 class="text-center">Contenu de votre Panier</h2>
-    <div id="Container_BasketContents"></div>
-</div>
+
 
 <div class="container">
     <h1>Validation de votre commande</h1>
@@ -60,12 +57,11 @@
             <div class="row">
                 <div class="form-group col">
                     <label>Nom</label>
-                    <input name="lastName" id="lastName" required minlength="5" class="form-control" type="text" pattern="[a-zA-Z]{,10}" required >
+                    <input name="lastName" id="lastName" class="form-control" required minlength="5" type="text" pattern="[a-zA-Z]{,10}" required >
                 </div>
                 <div class="form-group col">
                     <label>Prénom</label>
-                    <input name="firstName" id="firstName" required minlength="3" class="form-control" pattern="[a-zA-Z]" required  >
-                    <div>prénom invalide</div>
+                    <input name="firstName" id="firstName" class="form-control" required minlength="3" required  >
                 </div>
             </div>
             <div class="row">
@@ -88,17 +84,12 @@
     </div>
 
 <div class="form-group col-12">
-    <input type="submit" class="btn btn-primary btn-success col-12" id="envoi" value="envoyer">
+    <input type="button" class="btn btn-primary btn-success col-12" id="envoi" value="envoyer">
 </div>
 <div id="messages" class="text-center font-weight-bold "></div>
 
  </div>
 
-    <script src="../../js/article.js"></script>
-    <script src="../../js/config.js"></script>
-    <script src="basket.js"></script>
-
-    <script src="./js/orderAnswer.js"></script>
     
 </body>
 
