@@ -1,5 +1,5 @@
 {
     "host": "http://localhost:3000",
-    "articles":"furniture",
-    "options":"varnish"
+    "articles":"teddies",
+    "options":"colors"
 }
