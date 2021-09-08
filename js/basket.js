@@ -55,17 +55,12 @@ function basketDisplay() {
             <div class="row align-start">
                 <div class="col text-center">Prix total du Panier: ${PrixTotal/100} €</div>
             </div>
-            <div class="row">
-                <button class="btn col-12 btn-success" id="id_btn_commander">Commander</button>
-            </div>
+
         `
         basketContents.innerHTML +=BasketStructure;
-        // gestion bouton de passage de la commande 
-        const id_btn_commander =document.querySelector("#id_btn_commander");
-        id_btn_commander.addEventListener("click",(e)=>{
-            e.preventDefault;
-            window.location.href="order.html"
-        })
+        
+        
+        
     }
     
 }
