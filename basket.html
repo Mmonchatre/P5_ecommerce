@@ -21,7 +21,7 @@
 
 <body>
 
-<!-- contenu du Panier-->
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-darkpink">
     <a class="navbar-brand" href="./index.html">Orinoco</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -51,7 +51,7 @@
     <div id="Container_BasketContents"></div>
 </div>
 
-<div class="container">
+<div class="container" id="infosContact">
     <h1>Validation de votre commande</h1>
     <div class="form">
         <div class="row">
@@ -60,12 +60,17 @@
             <div class="row">
                 <div class="form-group col">
                     <label>Nom</label>
-                    <input name="lastName" id="lastName" required minlength="5" class="form-control" type="text" pattern="[a-zA-Z]{,10}" required >
+                    <input name="lastName" id="lastName" class="form-control" type="text" pattern="[a-zA-Z]{3,}" required >
                 </div>
                 <div class="form-group col">
                     <label>Prénom</label>
-                    <input name="firstName" id="firstName" required minlength="3" class="form-control" pattern="[a-zA-Z]" required  >
-                    <div>prénom invalide</div>
+                    <input name="firstName" id="firstName" class="form-control" type="text" pattern="[a-zA-Z]{3,}" required  >
+                    <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                      <div class="invalid-feedback">
+                          Le prénom ne doit pas contenir de chiffres et avoir au moins 3 lettres.
+                        </div>
                 </div>
             </div>
             <div class="row">
@@ -86,19 +91,19 @@
             </div>
         </div>
     </div>
-
-<div class="form-group col-12">
-    <input type="submit" class="btn btn-primary btn-success col-12" id="envoi" value="envoyer">
+    <div class="form-group col-12">
+        <input type="submit" class="btn btn-primary btn-success col-12" id="envoi" value="envoyer">
+    </div>
 </div>
+
 <div id="messages" class="text-center font-weight-bold "></div>
 
- </div>
-
-    <script src="../../js/article.js"></script>
+   <!-- <script src="../../js/article.js"></script>  -->
     <script src="../../js/config.js"></script>
+    <script src="../../js/prixDecimal.js"></script>
     <script src="../../js/basket.js"></script>
 
-    <script src="./js/orderAnswer.js"></script>
+    <script src="./js/classOrderAnswer.js"></script>
     
 </body>
 

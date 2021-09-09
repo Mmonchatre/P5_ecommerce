@@ -9,22 +9,21 @@ function basketDisplay() {
     basketContents.innerHTML +=BasketStructure;
     if((productsAlreadyInLocalStorage === null ) || (productsAlreadyInLocalStorage.length == 0)){
         basketContents.innerHTML +=`<div class="text-center">votre panier est vide</div>`;
+        // les infos de contact ne sont pas affiché si le panier est vide ( css visibility:hidden sur ID infosContact )
     }else{
+        document.getElementById('infosContact').style.visibility = 'visible';
         //affichage du contenu des articles du local storage et calcul du prix total du panier :
         let BasketStructure =`<div class="row">
-        <span class="col-2"></span>
-        <span class="col">Produit</span>
-        <span class="col">Option</span>
-        <span class="col">Prix</span>
-        <span class="col">Qty</span>
-        <span class="col">Prix sous total</span>
-        <span class="col"></span>
-        </div>
-        `;
-
+            <span class="col-2"></span>
+            <span class="col">Produit</span>
+            <span class="col">Option</span>
+            <span class="col">Prix</span>
+            <span class="col">Qty</span>
+            <span class="col">Prix sous total</span>
+            <span class="col"></span>
+        </div>`;
         productsAlreadyInLocalStorage.forEach(function(product){
-            BasketStructure += `
-                <div class="row border">
+            BasketStructure += `<div class="row border">
                     <img src="${product.ImageArticle}" alt="Bootstrap" class="img-circle img-thumbnail col-2 align-middle ">
                     <span class="col align-middle">
                         ${product.nomArticle}
@@ -33,7 +32,7 @@ function basketDisplay() {
                         ${product.optionArticle}
                     </span>
                     <span class="col align-middle">
-                        ${product.prixArticle/100} € 
+                        ${prixDecimal(product.prixArticle)} € 
                     </span>
                     <!-- <span class="col align-middle"> -->
                     <span>
@@ -42,27 +41,19 @@ function basketDisplay() {
                     <input type="button" value="+" class="plusArticle">
                     </span>
                     <span class="col align-middle">
-                        ${product.prixArticle/100*product.qtyArticle}
+                        ${prixDecimal(product.prixArticle*product.qtyArticle)} €
                     </span>
                     <span class="col align-middle text-right">
                         <button class="btn btn-supprimer-article"><i class="far fa-trash-alt red"></i></button>
                     </span>
-                </div>
-            `;
+                </div>`;
             PrixTotal += product.prixArticle*product.qtyArticle
         });
-        BasketStructure = BasketStructure + `
-            <div class="row align-start">
-                <div class="col text-center">Prix total du Panier: ${PrixTotal/100} €</div>
-            </div>
-
-        `
+        BasketStructure = BasketStructure + `<div class="row align-start">
+                <div class="col text-center">Prix total du Panier: ${prixDecimal(PrixTotal)} €</div>
+            </div>`
         basketContents.innerHTML +=BasketStructure;
-        
-        
-        
     }
-    
 }
 // fin fonction basketDisplay !----
 
@@ -279,59 +270,41 @@ function tableauIds()  {
 }
 tableauIds();
 
-    function serverOrder () {
-
-        const order ={
-            contact:{
-                firstName:firstName.value,
-                lastName:lastName.value,
-                address:address.value,
-                city: city.value,
-                email:email.value
-                },
-            products
-            }
-            
-            const init = {
-                method: "POST",
-                headers: {
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify(order),
-            };
-
-            //fetch("http://localhost:3000/api/teddies/order", init) 
-
-            loadConfig().then(data => {
-                config = data;
-                fetch(config.host + "/api/"+config.articles+"/order", init)
-                .then(response => response.json())
-                .then(response => {
-                    //let orderAnswer = new orderAnswer(response);
-                    orderId=response.orderId
-                    if (orderId != undefined) {
-
-                        //let message="votre commande "+ orderId+ " d'un montant de "+ PrixTotal/100 +"€ a bien été passée";
-                        //afficheMessage(message);
-                        const page2open ="orderConfirmation.html?"+orderId;
-                        //const page2open ="orderConfirmation.html?orderId="'+${orderId}+'"&firstName="'+${firstName}+"&lastName="+${lastName}+'"'
-
-                        window.location=page2open;
-                        
-                        
-                    }else{
-                        let message="Une erreur est survenue , votre commande n'a pas pu être passée";
-                        afficheMessage(message);
-                    }
-                })
-                .catch(error => alert("Erreur : " + error));
-    }
-);
-    }
-//loadConfig().then(data => {
-//    config = data;
-
-//});
+function serverOrder () {
+    const order ={
+        contact:{
+            firstName:firstName.value,
+            lastName:lastName.value,
+            address:address.value,
+            city: city.value,
+            email:email.value
+            },
+        products
+        }
+        const init = {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(order),
+        };
+        loadConfig().then(data => {
+            config = data;
+            fetch(config.host + "/api/"+config.articles+"/order", init)
+            .then(response => response.json())
+            .then(response => {
+                orderId=response.orderId
+                if (orderId != undefined) {
+                    const page2open ="orderConfirmation.html?"+orderId;
+                    window.location=page2open;
+                }else{
+                    let message="Une erreur est survenue , votre commande n'a pas pu être passée";
+                    afficheMessage(message);
+                }
+            })
+            .catch(error => alert("Erreur : " + error));
+        });
+}
 
 
 

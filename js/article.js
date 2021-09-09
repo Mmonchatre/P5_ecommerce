@@ -53,7 +53,7 @@ function ArticlePage (article){
                     ${listeOptions}
                     </SELECT></FORM>
             
-                    Prix ${article.price /100 +0.00} € 
+                    Prix ${prixDecimal(article.price)} € 
                 </div>
             
              <span >

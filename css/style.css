@@ -45,6 +45,12 @@ h1{
 }
 
 
+
+
+#infosContact {
+    visibility: hidden; 
+}
+
 input:invalid {
     position: relative;
     border: red solid 3px;

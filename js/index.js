@@ -8,6 +8,10 @@ loadConfig().then(data => {
         .then(jsonListArticle => {
             for (let jsonArticle of jsonListArticle) {
                 let article = new Article(jsonArticle);
+                    //prixcents=article.price;
+                    //prixdecimal=prixDecimal(prixcents);
+                    //console.log(prixdecimal);
+
                     document.querySelector(".container").innerHTML += 
                         `
                         <!-- <div class="col-12 mt-5"> -->
@@ -22,7 +26,7 @@ loadConfig().then(data => {
                                 <div class="card-body">
                                     <p class="card-text">
                                         <!--Description:<br>${article.description}-->
-                                        <br>Prix ${article.price/100*1.00} € 
+                                        <br>Prix ${prixDecimal(article.price)} € 
                                     </p>
                                 </div>
                             </div>
