@@ -1,26 +1,35 @@
 //extraction de l'ID de la commande avec slice 
 
 
-const queryString_orderId = window.location.search;
-const orderId = queryString_orderId.slice(1);
+//const queryString_orderId = window.location.search;
+const queryString_orderIdInfos = window.location.search;
 
-/*  test de recuperation du nom et prenom pour afficher un message personnalisé
-function processData()
-  {
-    var parameters = location.search.substring(1).split("&");
+console.log(queryString_orderIdInfos);
 
-    var temp = parameters[0].split("=");
-    l = unescape(temp[1]);
-    temp = parameters[1].split("=");
-    p = unescape(temp[1]);
-    document.getElementById("log").innerHTML = l;
-    document.getElementById("pass").innerHTML = p;
-  }
-processData()
-*/
+
+var parseQueryString = function() {
+    var str = window.location.search;
+    var objURL = {};
+    str.replace(
+        new RegExp( "([^?=&]+)(=([^&]*))?", "g" ),
+        function( $0, $1, $2, $3 ){
+            objURL[ $1 ] = $3;
+        }
+    );
+    return objURL;
+};
+//Example how to use it: 
+var params = parseQueryString();
+
+
+//orderId = params["orderId"];
+
+
+const fieldFirstName = document.getElementById("firstName")
+fieldFirstName.innerHTML = params["firstName"];
 
 const fieldOrderID = document.getElementById("orderId")
-fieldOrderID.innerHTML = orderId;
+fieldOrderID.innerHTML = params["orderId"];
 
 
 // generation du recapitulatif ( nom, option et prix de chaque element + total ) du panier :
@@ -41,22 +50,19 @@ function basketRecap(PrixTotal) {
             
             BasketRecapStructure = BasketRecapStructure + `
                     <div class="row">
-                    <div class="col">
-                        ${productsAlreadyInLocalStorage[k].nomArticle}
-                    </div>
-                    <div class="col">
-                        ${productsAlreadyInLocalStorage[k].optionArticle}
-                    </div>
-                    <div class="col">
-                        ${productsAlreadyInLocalStorage[k].qtyArticle} 
-                    </div>
-                    <div class="col">
-                        ${productsAlreadyInLocalStorage[k].prixArticle/100} € 
-                    </div>
-                    </div>
-                    
-                
-            `;
+                        <div class="col">
+                            ${productsAlreadyInLocalStorage[k].nomArticle}
+                        </div>
+                        <div class="col">
+                            ${productsAlreadyInLocalStorage[k].optionArticle}
+                        </div>
+                        <div class="col">
+                            ${productsAlreadyInLocalStorage[k].qtyArticle} 
+                        </div>
+                        <div class="col">
+                            ${prixDecimal(productsAlreadyInLocalStorage[k].prixArticle)} € 
+                        </div>
+                    </div>`;
             PrixTotal += productsAlreadyInLocalStorage[k].prixArticle * productsAlreadyInLocalStorage[k].qtyArticle;
             
         }
@@ -65,7 +71,7 @@ function basketRecap(PrixTotal) {
             <div class="row">
                 <div class ="col">
                     <div class="text-center">
-                        Total de votre commande: <span class="font-weight-bold">${PrixTotal/100} €</span>
+                        Total de votre commande: <span class="font-weight-bold">${prixDecimal(PrixTotal)} €</span>
                     </div>
                 </div>
             </div>            

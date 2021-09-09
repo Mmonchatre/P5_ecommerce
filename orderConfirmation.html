@@ -1,6 +1,8 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -42,7 +44,7 @@
     <div class="container" id="confirmation" display >
         <h1>Validation de votre commande</h1>
         <p>
-            félicitations, votre commande <span id="orderId" class="font-weight-bold "></span> a bien été passée.
+            félicitations <span id="firstName"></span>, votre commande <span id="orderId" class="font-weight-bold "></span> a bien été passée.
 
             vous trouverez ci dessous le recapitulatif:
 
@@ -61,7 +63,7 @@
                 <div id="ContainerBasketRecap"></div>
                 
         
-
+                <script src="./js/prixDecimal.js"></script>                
     <script src="./js/orderConfirmation.js"></script>
     <script src="./js/classOrderAnswer.js"></script>
     

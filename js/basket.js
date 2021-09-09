@@ -296,8 +296,13 @@ function serverOrder () {
             .then(response => {
                 orderId=response.orderId
                 if (orderId != undefined) {
-                    const page2open ="orderConfirmation.html?"+orderId;
+                    
+                    //const page2open ="orderConfirmation.html?"+orderId;
+                    /* test de passage de nom et prenom en plus */
+                    const page2open ="orderConfirmation.html?orderId="+orderId+"&lastName="+lastName.value+"&firstName="+firstName.value;
+                    
                     window.location=page2open;
+
                 }else{
                     let message="Une erreur est survenue , votre commande n'a pas pu être passée";
                     afficheMessage(message);
@@ -306,8 +311,6 @@ function serverOrder () {
             .catch(error => alert("Erreur : " + error));
         });
 }
-
-
 
 //Order Confirmation 
 document.getElementById("envoi").onclick = function()  {
