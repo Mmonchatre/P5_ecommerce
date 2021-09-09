@@ -1,35 +1,17 @@
-//extraction de l'ID de la commande avec slice 
+//recuperation de plusieurs parametres : https://stackoverflow.com/questions/523266/how-can-i-get-a-specific-parameter-from-location-search/42316411#42316411
 
 
-//const queryString_orderId = window.location.search;
-const queryString_orderIdInfos = window.location.search;
+const params = location.search.slice(1).split('&').reduce((acc, s) => {
+    const [k, v] = s.split('=')
+    return Object.assign(acc, {[k]: v})
+  }, {})
 
-console.log(queryString_orderIdInfos);
-
-
-var parseQueryString = function() {
-    var str = window.location.search;
-    var objURL = {};
-    str.replace(
-        new RegExp( "([^?=&]+)(=([^&]*))?", "g" ),
-        function( $0, $1, $2, $3 ){
-            objURL[ $1 ] = $3;
-        }
-    );
-    return objURL;
-};
-//Example how to use it: 
-var params = parseQueryString();
-
-
-//orderId = params["orderId"];
-
-
+//envoi du prénom et de l'orderId dans la page ( le nom pourrait aussi être envoyé...)
 const fieldFirstName = document.getElementById("firstName")
-fieldFirstName.innerHTML = params["firstName"];
-
+fieldFirstName.innerHTML = params.firstName;
 const fieldOrderID = document.getElementById("orderId")
-fieldOrderID.innerHTML = params["orderId"];
+fieldOrderID.innerHTML = params.orderId;
+
 
 
 // generation du recapitulatif ( nom, option et prix de chaque element + total ) du panier :
