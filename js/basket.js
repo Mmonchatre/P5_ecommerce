@@ -9,6 +9,7 @@ function basketDisplay() {
     basketContents.innerHTML +=BasketStructure;
     if((productsAlreadyInLocalStorage === null ) || (productsAlreadyInLocalStorage.length == 0)){
         basketContents.innerHTML +=`<div class="text-center">votre panier est vide</div>`;
+        document.getElementById('infosContact').style.visibility = 'hidden';
         // les infos de contact ne sont pas affiché si le panier est vide ( css visibility:hidden sur ID infosContact )
     }else{
         document.getElementById('infosContact').style.visibility = 'visible';
@@ -18,7 +19,7 @@ function basketDisplay() {
             <span class="col">Produit</span>
             <span class="col">Option</span>
             <span class="col">Prix</span>
-            <span class="col">Qty</span>
+            <span class="col-2">Qty</span>
             <span class="col">Prix sous total</span>
             <span class="col"></span>
         </div>`;
@@ -35,7 +36,7 @@ function basketDisplay() {
                         ${prixDecimal(product.prixArticle)} € 
                     </span>
                     <!-- <span class="col align-middle"> -->
-                    <span>
+                    <span class="col-2">
                     <input type="button" value="-" class="minusArticle">
                     <input type="number" step="1" min="1" name="quantity" value="${product.qtyArticle}" title="Qty" class="articleQuantity">
                     <input type="button" value="+" class="plusArticle">

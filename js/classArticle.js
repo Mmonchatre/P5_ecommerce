@@ -4,6 +4,6 @@ class Article {
     }
   }
 
-  class Colors {
-    //constructor(jsonArticle.colors)
-  }
+//  class Colors {
+//    //constructor(jsonArticle.colors)
+//  }

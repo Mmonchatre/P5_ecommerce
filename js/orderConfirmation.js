@@ -4,7 +4,7 @@
 const queryString_orderId = window.location.search;
 const orderId = queryString_orderId.slice(1);
 
-/*
+/*  test de recuperation du nom et prenom pour afficher un message personnalisé
 function processData()
   {
     var parameters = location.search.substring(1).split("&");
@@ -16,24 +16,15 @@ function processData()
     document.getElementById("log").innerHTML = l;
     document.getElementById("pass").innerHTML = p;
   }
-
-
 processData()
 */
 
 const fieldOrderID = document.getElementById("orderId")
-
-
 fieldOrderID.innerHTML = orderId;
-
-
-
-
 
 
 // generation du recapitulatif ( nom, option et prix de chaque element + total ) du panier :
 let PrixTotal=0;
-
 function basketRecap(PrixTotal) {
     let productsAlreadyInLocalStorage = JSON.parse(localStorage.getItem("Articles"));
     let BasketRecapStructure ="";
@@ -49,20 +40,20 @@ function basketRecap(PrixTotal) {
         for (k=0; k < productsAlreadyInLocalStorage.length; k++){
             
             BasketRecapStructure = BasketRecapStructure + `
-                    <tr>
-                    <td>
+                    <div class="row">
+                    <div class="col">
                         ${productsAlreadyInLocalStorage[k].nomArticle}
-                    </td>
-                    <td>
+                    </div>
+                    <div class="col">
                         ${productsAlreadyInLocalStorage[k].optionArticle}
-                    </td>
-                    <td>
+                    </div>
+                    <div class="col">
                         ${productsAlreadyInLocalStorage[k].qtyArticle} 
-                    </td>
-                    <td>
+                    </div>
+                    <div class="col">
                         ${productsAlreadyInLocalStorage[k].prixArticle/100} € 
-                    </td>
-                    </tr>
+                    </div>
+                    </div>
                     
                 
             `;
@@ -70,9 +61,14 @@ function basketRecap(PrixTotal) {
             
         }
         BasketRecapStructure = BasketRecapStructure + `
-            <tr>
-            <td colspan="4" class="text-center text-uppercase">Total de votre commande: <span class="font-weight-bold">${PrixTotal/100} €</span></td>
-            </tr>
+        
+            <div class="row">
+                <div class ="col">
+                    <div class="text-center">
+                        Total de votre commande: <span class="font-weight-bold">${PrixTotal/100} €</span>
+                    </div>
+                </div>
+            </div>            
         `;
         basketRecap.innerHTML +=BasketRecapStructure;
         // gestion bouton de passage de la commande 

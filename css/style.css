@@ -82,6 +82,9 @@ input:invalid {
     color:white;
 }
 
+.articleQuantity {
+    width: 80px;
+}
 /* ------------------  Panier HTML ----------------------*/
 
 .container_empty_basket, .recap {
