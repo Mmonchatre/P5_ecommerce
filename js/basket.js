@@ -18,8 +18,8 @@ function basketDisplay() {
             <span class="col-lg-2"></span>
             <span class="col-6 col-lg-2">Produit</span>
             <span class="col-6 col-lg-2">Option</span>
-            <span class="col-3 col-lg-2">Prix</span>
-            <span class="col-6 col-lg-2">Qty</span>
+            <span class="col-3 col-lg-1">Prix</span>
+            <span class="col-6 col-lg-2">Quantité</span>
             <span class="col-3 col-lg-2">Prix sous total</span>
             <span class="col"></span>
         </div>`;
@@ -32,7 +32,7 @@ function basketDisplay() {
                     <span class="col-6 col-lg-2 align-middle">
                         ${product.optionArticle}
                     </span>
-                    <span class="col-3 col-lg-2 align-middle">
+                    <span class="col-3 col-lg-1 align-middle">
                         ${prixDecimal(product.prixArticle)}€
                     </span>
                     <!-- <span class="col align-middle"> -->
