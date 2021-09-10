@@ -15,36 +15,36 @@ function basketDisplay() {
         document.getElementById('infosContact').style.visibility = 'visible';
         //affichage du contenu des articles du local storage et calcul du prix total du panier :
         let BasketStructure =`<div class="row">
-            <span class="col-2"></span>
-            <span class="col">Produit</span>
-            <span class="col">Option</span>
-            <span class="col">Prix</span>
-            <span class="col-2">Qty</span>
-            <span class="col">Prix sous total</span>
+            <span class="col-lg-2"></span>
+            <span class="col-6 col-lg-2">Produit</span>
+            <span class="col-6 col-lg-2">Option</span>
+            <span class="col-3 col-lg-2">Prix</span>
+            <span class="col-6 col-lg-2">Qty</span>
+            <span class="col-3 col-lg-2">Prix sous total</span>
             <span class="col"></span>
         </div>`;
         productsAlreadyInLocalStorage.forEach(function(product){
             BasketStructure += `<div class="row border">
-                    <img src="${product.ImageArticle}" alt="Bootstrap" class="img-circle img-thumbnail col-2 align-middle ">
-                    <span class="col align-middle">
+                    <img src="${product.ImageArticle}" alt="Bootstrap" class="img-circle img-thumbnail col-12 col-lg-2 align-middle ">
+                    <span class="col-6 col-lg-2 align-middle">
                         ${product.nomArticle}
                     </span>
-                    <span class="col align-middle">
+                    <span class="col-6 col-lg-2 align-middle">
                         ${product.optionArticle}
                     </span>
-                    <span class="col align-middle">
-                        ${prixDecimal(product.prixArticle)} € 
+                    <span class="col-3 col-lg-2 align-middle">
+                        ${prixDecimal(product.prixArticle)}€
                     </span>
                     <!-- <span class="col align-middle"> -->
-                    <span class="col-2">
+                    <span class="col-6 col-lg-2">
                     <input type="button" value="-" class="minusArticle">
                     <input type="number" step="1" min="1" name="quantity" value="${product.qtyArticle}" title="Qty" class="articleQuantity">
                     <input type="button" value="+" class="plusArticle">
                     </span>
-                    <span class="col align-middle">
-                        ${prixDecimal(product.prixArticle*product.qtyArticle)} €
+                    <span class="col-3 col-lg-2 align-middle">
+                        ${prixDecimal(product.prixArticle*product.qtyArticle)}€
                     </span>
-                    <span class="col align-middle text-right">
+                    <span class="col-12 col-lg-1 align-middle">
                         <button class="btn btn-supprimer-article"><i class="far fa-trash-alt red"></i></button>
                     </span>
                 </div>`;
