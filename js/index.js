@@ -8,20 +8,15 @@ loadConfig().then(data => {
         .then(jsonListArticle => {
             for (let jsonArticle of jsonListArticle) {
                 let article = new Article(jsonArticle);
-                    //prixcents=article.price;
-                    //prixdecimal=prixDecimal(prixcents);
-                    //console.log(prixdecimal);
-
-                    document.querySelector(".container").innerHTML += 
+                    document.querySelector("#listeProduits").innerHTML += 
                         `
-                        <!-- <div class="col-12 mt-5"> -->
-                        <div class="col-12 col-lg-4 mt-5">
+                        <div class="col-12 col-lg-4 mb-5">
                             <div class="card article">
                                 <div class="card-header">
                                     <h5 class="card-title d-flex justify-content-between">${article.name}
                                     </span><a href="./article.html?${article._id}" class="stretched-link" ></a></h5>
                                 </div>
-                                <img src="${article.imageUrl}" class="card-img-top img-thumbnail">
+                                <img src="${article.imageUrl}" class="card-img-top img-thumbnail img-height">
 
                                 <div class="card-body">
                                     <p class="card-text">

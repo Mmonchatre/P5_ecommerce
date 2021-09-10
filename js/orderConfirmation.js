@@ -59,20 +59,17 @@ function basketRecap(PrixTotal) {
             </div>            
         `;
         basketRecap.innerHTML +=BasketRecapStructure;
-        // gestion bouton de passage de la commande 
+         
     }
 }
 // fin fonction basketRecap !----
 
 basketRecap();
 
+//vidage du panier après la confirmation de la commande !
 emptyBasket();
 function emptyBasket () {
             localStorage.removeItem("Articles");
         }
 
-
-
-
-// generation du recapitulatif du panier, fin!
 

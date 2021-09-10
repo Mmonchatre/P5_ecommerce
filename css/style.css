@@ -26,6 +26,11 @@ h1{
     width:50px;
 }
 
+.img-height {
+    height:250px;
+    width:100%;
+    object-fit: cover;
+}
 
 .cart-product-name{
     width:100px;
@@ -53,7 +58,7 @@ h1{
 
 input:invalid {
     position: relative;
-    border: red solid 3px;
+    border: rgb(206, 12, 12) solid 1px;
   }
 
 .valid {
