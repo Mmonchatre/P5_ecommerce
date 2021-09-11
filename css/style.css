@@ -17,6 +17,7 @@ body{
 .red {
     color:red;
 }
+
 h1{
     font-size: 150%;
     text-align: center;
@@ -32,6 +33,7 @@ h1{
     object-fit: cover;
 }
 
+/*
 .cart-product-name{
     width:100px;
 }
@@ -45,6 +47,8 @@ h1{
 .cart-product-price{
         width: 30px
     }
+
+    */
 .recap{
         width:200px;
 }
