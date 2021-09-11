@@ -17,9 +17,9 @@ function basketDisplay() {
         let BasketStructure =`<div class="row">
             <span class="col-lg-2"></span>
             <span class="col-6 col-lg-2">Produit</span>
-            <span class="col-6 col-lg-2">Option</span>
+            <span class="col-6 col-lg-1">Option</span>
             <span class="col-3 col-lg-1">Prix</span>
-            <span class="col-6 col-lg-2">Quantité</span>
+            <span class="col-6 col-lg-3">Quantité</span>
             <span class="col-3 col-lg-2">Prix sous total</span>
             <span class="col"></span>
         </div>`;
@@ -29,14 +29,14 @@ function basketDisplay() {
                     <span class="col-6 col-lg-2 align-middle">
                         ${product.nomArticle}
                     </span>
-                    <span class="col-6 col-lg-2 align-middle">
+                    <span class="col-6 col-lg-1 align-middle">
                         ${product.optionArticle}
                     </span>
                     <span class="col-3 col-lg-1 align-middle">
                         ${prixDecimal(product.prixArticle)}€
                     </span>
                     <!-- <span class="col align-middle"> -->
-                    <span class="col-6 col-lg-2">
+                    <span class="col-6 col-lg-3">
                     <input type="button" value="-" class="minusArticle">
                     <input type="number" step="1" min="1" name="quantity" value="${product.qtyArticle}" title="Qty" class="articleQuantity">
                     <input type="button" value="+" class="plusArticle">
@@ -139,27 +139,12 @@ var champs_pleins = true;
 
 
 
-const firstNameVerif = (champ) => {
-    valeur = document.getElementById(champ).value;
-    if ( (!valeur.match(/^[a-zA-Z|\s-]*$/)) || (valeur == "") ){
-        champs_pleins = false;
-        message="Le prénom ne peux pas contenir de caractères spéciaux ou de chiffres"
-      afficheMessage(message);
-    }else{
-        champs_pleins = champs_pleins  && true;
-    }
-  };
-
-
-//document.getElementById("firstName").onchange = function() {
-    //firstNameVerif("firstName")
-//}
-
-
 function afficheMessage (message) {
     const Affichemessage = document.querySelector("#messages");
     Affichemessage.innerHTML =message;
 }
+
+
 
 function verif_champs(){
     afficheMessage("");
@@ -179,86 +164,20 @@ function verif_champs(){
     }else{
         document.getElementById("envoi").disabled = true;
     }
- 
 }
-
-
 verif_champs();
-
 // fin verif_champ()
-
-
-
-/*
-const lastNameVerif = (valeur) => {
-    if (!valeur.match(/^[a-zA-Z|\s-]*$/)) {
-        champs_pleins = champs_pleins && false;
-      alert(
-        "Le nom ne peux pas contenir de caractères spéciaux ou de chiffres"
-      );
-    } else {
-        champs_pleins = champs_pleins  && true;
-    }
-  };
-*/
-
-/*
-  const emailVerif = (valeur) => {
-    if (!valeur.match(/^[a-zA-Z|\s-]*$/)) {
-        champs_pleins = champs_pleins && false;
-      alert(
-        "Le nom ne peux pas contenir de caractères spéciaux ou de chiffres"
-      );
-    } else {
-        champs_pleins = champs_pleins  && true;
-    }
-  };
-*/
-  
-/*
-const CityVerif = (valeur) => {
-    if (!valeur.match(/^[a-zA-Z|\s-]*$/)) {
-        champs_pleins = champs_pleins && false;
-      alert(
-        "Le nom ne peux pas contenir de caractères spéciaux ou de chiffres"
-      );
-    } else {
-        champs_pleins = champs_pleins  && true;
-    }
-  };
-
-*/
-
-/*
-  const addressVerif = (valeur) => {
-    if (!valeur.match(/^[a-zA-Z|\s-]*$/)) {
-        champs_pleins = champs_pleins && false;
-      alert(
-        "Le nom ne peux pas contenir de caractères spéciaux ou de chiffres"
-      );
-    } else {
-        champs_pleins = champs_pleins  && true;
-    }
-  };
-
-*/
-
-// fin activation du bouton envoi si champ_obligatoires remplis
-
-
 
 function relanceVerifChamps(){
     champsObligatoires.forEach(champ => {
         document.getElementById(champ).onchange = function() {
             verif_champs();
-            //FonctionVerif()= champ+"verif()";
-            //FonctionVerif();
-            
         }
     });
 } 
 relanceVerifChamps();
 
+// fin activation du bouton envoi si champ_obligatoires remplis
 //preparation de fetch POST :
 
 function tableauIds()  {
@@ -270,6 +189,7 @@ function tableauIds()  {
     products=tableau;    
 }
 tableauIds();
+
 
 function serverOrder () {
     const order ={
@@ -289,43 +209,49 @@ function serverOrder () {
             },
             body: JSON.stringify(order),
         };
+// console.log("JSON.stringify(order)=",JSON.stringify(order));
+
         loadConfig().then(data => {
             config = data;
             fetch(config.host + "/api/"+config.articles+"/order", init)
             .then(response => response.json())
             .then(response => {
-                orderId=response.orderId
+                //console.log("reponse=",response);
+                orderId=response.orderId;
                 if (orderId != undefined) {
-                    
-                    //const page2open ="orderConfirmation.html?"+orderId;
-                    /* test de passage de nom et prenom en plus */
                     const page2open ="orderConfirmation.html?orderId="+orderId+"&lastName="+lastName.value+"&firstName="+firstName.value;
-                    
                     window.location=page2open;
-
                 }else{
                     let message="Une erreur est survenue , votre commande n'a pas pu être passée";
                     afficheMessage(message);
                 }
             })
-            .catch(error => alert("Erreur : " + error));
+            .catch(error => alert("Erreur dans basket.js : " + error));
         });
 }
+
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+          if (form.checkValidity() === true) {
+            //serverOrder(); 
+            }
+        }, false);
+      });
+    }, false);
+  })();
 
 //Order Confirmation 
 document.getElementById("envoi").onclick = function()  {
     serverOrder(); 
 }
-
-var input=document.getElementById("firstName");
-console.log(input);
-input.addEventListener("input", function(e) {
-    console.log(e);
-    if (e.target.checkValidity()){
-    console.log("valid");
-    e.target.nextElementSibling.classList.add("valid");
-    } else {
-        e.target.nextElementSibling.classList.remove("valid");
-        console.log("invalid")
-    }
-});
