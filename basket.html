@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="fr">
 
 <head>
@@ -55,59 +56,61 @@
     <h1>Validation de votre commande</h1>
     <form class="needs-validation" novalidate>
         <div class="row">
-        <div class="col">
-            <h4>Vos informations</h4>
-            <div class="form-row">
-                <div class="col-md-6 mb-3">
-                    <label>Nom</label>
-                    <input name="lastName" id="lastName" class="form-control" type="text" pattern="[a-zA-Z]{3,}" required >
-                    <div class="valid-feedback">
-                        Looks Good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Le prénom ne doit pas contenir de chiffres et avoir au moins 3 lettres.
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label>Prénom</label>
-                    <input name="firstName" id="firstName" class="form-control" type="text" pattern="[a-zA-Z]{3,}" required  >
-                    <div class="valid-feedback">
-                        Looks good!
-                      </div>
-                      <div class="invalid-feedback">
-                          Le prénom ne doit pas contenir de chiffres et avoir au moins 3 lettres.
+                <div class="col">
+                    <h4>Vos informations</h4>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>Nom</label>
+                            <input name="lastName" id="lastName" class="form-control" type="text" pattern="[a-zA-Z]{3,}" required >
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Le prénom ne doit pas contenir de chiffres et avoir au moins 3 lettres.
+                            </div>
                         </div>
-                </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Prénom</label>
+                            <input name="firstName" id="firstName" class="form-control" type="text" pattern="[a-zA-Z]{3,}" required  >
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Le prénom ne doit pas contenir de chiffres et avoir au moins 3 lettres.
+                                </div>
+                        </div>
 
-                <div class="col-md-12 mb-3">
-                    <label>E-mail</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="jean.dupond@mail.fr" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required  >
-                    <div class="invalid-feedback">
-                        L'email est invalide.
+                        <div class="col-md-12 mb-3">
+                            <label>E-mail</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="jean.dupond@mail.fr" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required  >
+                            <div class="invalid-feedback">
+                                L'email est invalide.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>Adresse</label>
+                            <input name="address" id="address" minlength="5" class="form-control" required  >
+                            <div class="invalid-feedback">
+                                Veuillez fournir une adresse.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="city">Ville</label>
+                            <input type="text" name="city" id="city"  minlength="3" class="form-control" required  >
+                            <div class="invalid-feedback">
+                                Veuillez fournir un nom de ville.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="col-md-6 mb-3">
-                    <label>Adresse</label>
-                    <input name="address" id="address" required minlength="5" class="form-control" required  >
-                    <div class="invalid-feedback">
-                        Veuillez fournir une adresse.
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="city">Ville</label>
-                    <input type="text" name="city" id="city" required minlength="3" class="form-control" required  >
-                    <div class="invalid-feedback">
-                        Veuillez fournir un nom de ville.
-                    </div>
-                </div>
-            </div>
+   
+        <div class="form-group col-12">
+            <input type="submit" class="btn btn-primary btn-success col-12" id="envoi" value="envoyer">
         </div>
     </form>
-    <div class="form-group col-12">
-        <input type="submit" class="btn btn-primary btn-success col-12" id="envoi" value="envoyer">
-    </div>
 </div>
 
 <div id="messages" class="text-center font-weight-bold "></div>
