@@ -2,9 +2,6 @@
 /**
  * recuperation de l'id dans la chaine de l'url et affichage du detail de l'article
  */
-
-
-
 const queryString_url_id = window.location.search;
 // extraction de l'id avec slice 
 const ArticleId = queryString_url_id.slice(1);
